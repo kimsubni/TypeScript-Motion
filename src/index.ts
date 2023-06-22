@@ -7,9 +7,12 @@ import Router from "./router.js";
 const container = document.querySelector("#app") as HTMLElement;
 const main = new Main();
 const pages = {
-  main: () => container.appendChild(main.render()),
+  main: () => {
+    container.innerHTML = "";
+    container.appendChild(main.render());
+  },
   login: () => (container.innerText = "login page"),
 };
 const router = Router.getInstance();
 
-router.addRoute("#/", pages.main).addRoute("#/login", pages.login).start();
+router.addRoute("/", pages.main).addRoute("/login", pages.login).render("/");

@@ -6,9 +6,12 @@ import Router from "./router.js";
 var container = document.querySelector("#app");
 var main = new Main();
 var pages = {
-    main: function () { return container.appendChild(main.render()); },
+    main: function () {
+        container.innerHTML = "";
+        container.appendChild(main.render());
+    },
     login: function () { return (container.innerText = "login page"); },
 };
 var router = Router.getInstance();
-router.addRoute("#/", pages.main).addRoute("#/login", pages.login).start();
+router.addRoute("/", pages.main).addRoute("/login", pages.login).render("/");
 //# sourceMappingURL=index.js.map

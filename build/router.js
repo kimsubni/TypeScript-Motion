@@ -1,6 +1,31 @@
 var Router = /** @class */ (function () {
     function Router() {
+        var _this = this;
+        // router feature 2 : 현재 URL이 변경되면 페이지 콘텐츠를 해당 URL에 매핑된 구성 요소로 교체한다.
+        this.render = function (path) {
+            var currentRoute = _this.routes.find(function (route) { return route.fragment == path; });
+            if (currentRoute) {
+                window.history.pushState({}, "", "http://172.29.89.104:5500" + currentRoute.fragment);
+                currentRoute.comp();
+            }
+            else {
+                console.log("여기온단뜻?");
+                window.history.pushState({}, "", "http://172.29.89.104:5500");
+            }
+        };
         this.routes = [];
+        window.onpopstate = function (e) {
+            console.log(e.target);
+            _this.render(window.location.pathname);
+        };
+        var aTags = document.querySelectorAll("a");
+        aTags.forEach(function (tag) {
+            return tag.addEventListener("click", function (e) {
+                e.preventDefault();
+                var hrefs = tag.href.split("/");
+                _this.render("/" + hrefs[hrefs.length - 1]);
+            });
+        });
     }
     Router.getInstance = function () {
         if (!Router.instance) {
@@ -12,17 +37,6 @@ var Router = /** @class */ (function () {
     Router.prototype.addRoute = function (fragment, comp) {
         this.routes.push({ fragment: fragment, comp: comp });
         return this;
-    };
-    // router feature 2 : 현재 URL이 변경되면 페이지 콘텐츠를 해당 URL에 매핑된 구성 요소로 교체한다.
-    Router.prototype.start = function () {
-        var _this = this;
-        var checkRoutes = function () {
-            var currentRoute = _this.routes.find(function (route) { return route.fragment === window.location.hash; });
-            currentRoute === null || currentRoute === void 0 ? void 0 : currentRoute.comp();
-        };
-        // 브라우저에서 hash값이 바뀔 때 발생하는 이벤트
-        window.addEventListener("hashchange", checkRoutes);
-        checkRoutes();
     };
     return Router;
 }());
