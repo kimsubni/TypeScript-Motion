@@ -1,4 +1,3 @@
-// @ts-nocheck
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-undef */
 const path = require("path");
@@ -7,7 +6,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = () => {
   return {
-    entry: "./src/index.ts",
+    entry: "./src/index.ts", // 시작점
     module: {
       rules: [
         {
@@ -28,7 +27,7 @@ module.exports = () => {
         },
         {
           test: /\.(css|scss)$/,
-          use: [MiniCssExtractPlugin.loader, "css-loader"],
+          use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
         },
         {
           test: /\.svg$/,
@@ -50,10 +49,11 @@ module.exports = () => {
       modules: ["node_modules"],
       extensions: [".ts", ".js", ".json", ".scss"],
       alias: {
-        "@": path.join(__dirname, "src"),
+        "@": path.join(__dirname, "./src"),
       },
     },
     output: { path: path.join(__dirname, "./dist/src"), filename: "[name].js" },
     devtool: "source-map",
+    mode: "development",
   };
 };

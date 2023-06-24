@@ -1,18 +1,15 @@
-// import App from "./App";
-// import Login from "./Pages/Login";
-import Main from "./Pages/Main.js";
-import Router from "./router.js";
+import { initRouter, Route } from "@/core/BrowserRouter"; // 또는 HashRouter
+import Main from "@/Pages/Main";
+import Component from "@/core/Component";
+import "@/scss/index.scss";
+import Sub from "@/Pages/Sub";
 
-// const app = new App(document.querySelector("#app") as HTMLElement);
-const container = document.querySelector("#app") as HTMLElement;
-const main = new Main();
-const pages = {
-  main: () => {
-    container.innerHTML = "";
-    container.appendChild(main.render());
-  },
-  login: () => (container.innerText = "login page"),
-};
-const router = Router.getInstance();
+const routes: Route[] = [
+  { path: "/", page: Main as typeof Component },
+  { path: "/sub", page: Sub as typeof Component },
+];
 
-router.addRoute("/", pages.main).addRoute("/login", pages.login).render("/");
+const $app = document.querySelector("#app") as HTMLElement;
+$app.appendChild(document.createElement("main"));
+
+initRouter({ $app, routes });

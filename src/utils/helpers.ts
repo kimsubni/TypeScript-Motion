@@ -1,4 +1,4 @@
-export const customEventEmiiter = (eventType: string, detail?: object) => {
+export const customEventEmitter = (eventType: string, detail?: object) => {
   document.dispatchEvent(
     new CustomEvent(eventType, {
       detail,
