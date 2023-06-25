@@ -4,15 +4,12 @@ import Component, { PropsType, StateType } from "@/core/Component";
 export default class Main extends Component<PropsType, StateType> {
   didMount(): void {
     const $header = this.target.querySelector("header");
-    new Header($header as Element, { propTest: "mainprop" });
+    new Header($header as Element, { propTest: "mainprops" });
   }
-
-  template() {
+  template(): string {
     return `
-      <div class='main-page'>
+    <div class='main-wrapper drop-shadow'>
         <header></header>
-        MainPage
-      </div>
-    `;
+    </div>`;
   }
 }

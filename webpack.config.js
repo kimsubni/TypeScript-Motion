@@ -30,6 +30,15 @@ module.exports = () => {
           use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
         },
         {
+          test: /\.(jpg|png|gif)$/,
+          loader: "url-loader",
+          options: {
+            name: "[name].[ext]?[hash]",
+            publicPath: "./dist",
+            limit: 8192,
+          },
+        },
+        {
           test: /\.svg$/,
           use: {
             loader: "file-loader",
