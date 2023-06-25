@@ -1,2 +1,47 @@
-#app {
+@import "./global.scss";
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  align-items: center;
+  height: $header-height;
+  background-color: $light-grey;
+  #main,
+  #login {
+    padding: 10px;
+    background-color: red;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .header-items {
+    @include flexCenter;
+  }
+  .header-item button {
+    background-color: transparent;
+    border: none;
+    width: 80px;
+    margin: 0 5px;
+    font-family: $font-family;
+    height: calc($header-height - 20px);
+  }
+  .header-item:not(:last-child) {
+    border-right: 1.5px solid $grey;
+  }
+}
+
+.page-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.content-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.main-wrapper {
+  width: 800px;
+  height: $main-content;
+  background-color: $white;
 }

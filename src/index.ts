@@ -1,12 +1,12 @@
 import { initRouter, Route } from "@/core/BrowserRouter"; // 또는 HashRouter
-import Main from "@/Pages/Main";
+import App from "@/App";
 import Component from "@/core/Component";
 import "@/scss/index.scss";
-import Sub from "@/Pages/Sub";
+import Login from "./Pages/Login";
 
 const routes: Route[] = [
-  { path: "/", page: Main as typeof Component },
-  { path: "/sub", page: Sub as typeof Component },
+  { path: "/", page: App as typeof Component },
+  { path: "/login", page: Login as typeof Component },
 ];
 
 const $app = document.querySelector("#app") as HTMLElement;
