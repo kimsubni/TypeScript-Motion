@@ -8,7 +8,7 @@ export default class Main extends Component<PropsType, StateType> {
   }
   template(): string {
     return `
-    <div class='main-wrapper drop-shadow'>
+    <div class='main-wrapper box-shadow'>
         <header></header>
     </div>`;
   }

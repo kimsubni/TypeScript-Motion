@@ -1,7 +1,19 @@
 import Component, { PropsType, StateType } from "@/core/Component";
 
-export default class Model extends Component<PropsType, StateType> {
+type ModalProps = {
+  id: string;
+};
+export default class Modal extends Component<ModalProps, StateType> {
+  didMount(): void {
+    const $modalWrapper = document.querySelector(".modal-wrapper");
+    $modalWrapper?.addEventListener("click", () => {
+      $modalWrapper.remove();
+    });
+  }
+
   template(): string {
-    return ``;
+    return `<div class="modal-wrapper">
+      <div class="modal box-shadow-dark">${this.props.id}</div>
+    </div>`;
   }
 }
