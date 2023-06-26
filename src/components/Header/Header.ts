@@ -1,6 +1,15 @@
 import Component, { PropsType, StateType } from "@/core/Component";
 import HeaderItemCard, { HeaderProps } from "./HeaderItemCard";
-import Modal from "../Modal";
+import Modal from "../Modal/Modal";
+
+type inputType = {
+  url?: string;
+  title?: string;
+  description?: string;
+  tag?: string[];
+  content?: string;
+  isComplete?: boolean;
+};
 
 export default class Header extends Component<PropsType, StateType> {
   didMount() {
@@ -9,6 +18,7 @@ export default class Header extends Component<PropsType, StateType> {
         name: "이미지 삽입",
         id: "img",
         url: "https://res.cloudinary.com/deogv2vod/image/upload/v1687763399/Motion/imgBtn_xp45wq.png",
+        
       },
       {
         name: "비디오 삽입",
@@ -26,13 +36,12 @@ export default class Header extends Component<PropsType, StateType> {
         url: "https://res.cloudinary.com/deogv2vod/image/upload/v1687763399/Motion/todoBtn_up9ztt.png",
       },
     ];
-    const $modal = this.target.querySelector("modal") as HTMLElement;
     btnArray.forEach((item) => {
       const $headerItems = this.target.querySelector(
         `#${item.id}`
       ) as HTMLElement;
       this.insertItemCard($headerItems, item);
-      this.insertEvent($headerItems, item.id, $modal);
+      this.insertEvent($headerItems, item);
     });
   }
   insertItemCard($headerItems: HTMLElement, item: HeaderProps): HTMLElement {
@@ -45,10 +54,13 @@ export default class Header extends Component<PropsType, StateType> {
     return $headerItems;
   }
 
-  insertEvent($htmlElement: HTMLElement, id: string, $modal: HTMLElement) {
+  insertEvent($htmlElement: HTMLElement, item: HeaderProps) {
+    const { id, name } = item;
+    const $modal = this.target.querySelector("modal");
     $htmlElement.addEventListener("click", () => {
       new Modal($modal as Element, {
         id,
+        name,
       });
     });
   }
@@ -65,8 +77,8 @@ export default class Header extends Component<PropsType, StateType> {
         <div class='header-item' id='note'></div>
         <div class='header-item' id='todo'></div>
       </div>
-      <modal></modal>
     </div>
+    <modal></modal>
     `;
   }
 }

@@ -1,5 +1,6 @@
 import Component, { PropsType, StateType } from "@/core/Component";
 import img from "@/assets/imgBtn.png";
+
 export type HeaderProps = {
   name: string;
   id: string;

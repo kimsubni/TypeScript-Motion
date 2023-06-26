@@ -15,6 +15,23 @@ $default-transition: all 200ms ease;
   align-items: center;
 }
 
+@mixin boxShadow {
+  box-shadow: 7px 7px 10px -4px rgba(168, 168, 168, 0.2);
+  -webkit-box-shadow: 7px 7px 10px -4px rgba(168, 168, 168, 0.2);
+  -moz-box-shadow: 7px 7px 10px -4px rgba(168, 168, 168, 0.2);
+}
+@mixin boxShadowDark {
+  box-shadow: 5px 5px 8px -3px rgba(125, 125, 125, 0.6);
+  -webkit-box-shadow: 5px 5px 8px -3px rgba(125, 125, 125, 0.6);
+  -moz-box-shadow: 5px 5px 8px -3px rgba(125, 125, 125, 0.6);
+}
+
+@mixin flexBetween {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 body {
   margin: 0;
   background-color: $background-color;
@@ -33,11 +50,6 @@ body {
   box-shadow: 7px 7px 10px -4px rgba(168, 168, 168, 0.2);
   -webkit-box-shadow: 7px 7px 10px -4px rgba(168, 168, 168, 0.2);
   -moz-box-shadow: 7px 7px 10px -4px rgba(168, 168, 168, 0.2);
-}
-.box-shadow-dark {
-  box-shadow: 5px 5px 8px -3px rgba(94, 94, 94, 0.6);
-  -webkit-box-shadow: 5px 5px 8px -3px rgba(94, 94, 94, 0.6);
-  -moz-box-shadow: 5px 5px 8px -3px rgba(94, 94, 94, 0.6);
 }
 @font-face {
   font-family: "Pretendard-Regular";
