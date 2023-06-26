@@ -19,12 +19,21 @@
     @include flexCenter;
   }
   .header-item button {
+    cursor: pointer;
     background-color: transparent;
     border: none;
     width: 80px;
     margin: 0 5px;
     font-family: $font-family;
     height: calc($header-height - 20px);
+    .btn-img {
+      width: 30px;
+      height: 30px;
+    }
+    .header-btn {
+      display: flex;
+      flex-direction: column;
+    }
   }
   .header-item:not(:last-child) {
     border-right: 1.5px solid $grey;
@@ -41,7 +50,7 @@
   justify-content: center;
 }
 .main-wrapper {
-  width: 800px;
+  width: 700px;
   height: $main-content;
   background-color: $white;
 }
