@@ -2,14 +2,6 @@ import Component, { PropsType, StateType } from "@/core/Component";
 import HeaderItemCard from "./HeaderItemCard";
 import Modal from "../Modal/Modal";
 
-export type inputType = {
-  url: string;
-  title: string;
-  description: string;
-  tag: string[];
-  content: string;
-  isComplete: boolean;
-};
 export type HeaderItem = {
   name: string;
   id: string;
