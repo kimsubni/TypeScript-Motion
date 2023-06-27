@@ -1,5 +1,5 @@
 import Component, { PropsType, StateType } from "@/core/Component";
-
+import ImgModal from "@/components/Modal/HeaderModal/ImgModal";
 type ModalProps = {
   id: string;
   name: string;
@@ -15,11 +15,9 @@ export default class Modal extends Component<ModalProps, StateType> {
   async inputContent() {
     const $modalContent = document.querySelector(".modal-content");
     const Content = await import("@/components/Modal/HeaderModal/ImgModal");
-    // if (Content) {
-    //   new Content($modalContent as Element, { props: "헤" });
-    // }
-    console.log("여기출력할게!" + typeof Content);
-    console.log("여기출력할게!", Content);
+    if (Content) {
+      new Content.default($modalContent as Element, { props: "헤" });
+    }
   }
 
   template(): string {
