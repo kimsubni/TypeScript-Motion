@@ -101,6 +101,11 @@
     background-color: $light-grey;
     @include flexBetween;
     font-weight: bold;
+    i {
+      font-size: 20px;
+      cursor: pointer;
+      user-select: none;
+    }
   }
   .modal-content {
     padding: 20px;

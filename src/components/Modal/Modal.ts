@@ -6,13 +6,22 @@ type ModalProps = {
 };
 export default class Modal extends Component<ModalProps, StateType> {
   didMount(): void {
-    const $modalWrapper = document.querySelector(".modal-wrapper");
-    $modalWrapper?.addEventListener("click", (e) => {
+    const $modalWrapper = this.target.querySelector(".modal-wrapper");
+    if (!$modalWrapper) {
+      new Error("모달 생성 오류");
+      return;
+    }
+    $modalWrapper.addEventListener("click", (e) => {
       if (e.currentTarget === e.target) {
         $modalWrapper.remove();
       }
     });
     this.inputContent();
+
+    const $closeModal = this.target.querySelector(".close-modal");
+    $closeModal?.addEventListener("click", () => {
+      $modalWrapper.remove();
+    });
   }
   async inputContent() {
     const $modalContent = document.querySelector(".modal-content");
@@ -28,7 +37,7 @@ export default class Modal extends Component<ModalProps, StateType> {
       <div class="modal">
         <div class="modal-header">
           <span>${this.props.name}</span>
-          <span>X</span>
+          <span class="close-modal"><i class="fa-solid fa-xmark"></i></span>
         </div>
         <div class ="modal-content"></div>
       </div>
