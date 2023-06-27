@@ -46,6 +46,14 @@ body {
   font-size: $default-font-size;
   font-family: $font-family;
 }
+input {
+  outline: none;
+  border: none;
+  padding: 0 10px;
+}
+input:focus {
+  outline: none;
+}
 .box-shadow {
   box-shadow: 7px 7px 10px -4px rgba(168, 168, 168, 0.2);
   -webkit-box-shadow: 7px 7px 10px -4px rgba(168, 168, 168, 0.2);

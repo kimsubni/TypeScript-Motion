@@ -1,39 +1,48 @@
 import Component, { PropsType, StateType } from "@/core/Component";
-import HeaderItemCard, { HeaderProps } from "./HeaderItemCard";
+import HeaderItemCard from "./HeaderItemCard";
 import Modal from "../Modal/Modal";
 
-type inputType = {
-  url?: string;
-  title?: string;
-  description?: string;
-  tag?: string[];
-  content?: string;
-  isComplete?: boolean;
+export type inputType = {
+  url: string;
+  title: string;
+  description: string;
+  tag: string[];
+  content: string;
+  isComplete: boolean;
+};
+export type HeaderItem = {
+  name: string;
+  id: string;
+  url: string;
+  compPath: string;
 };
 
 export default class Header extends Component<PropsType, StateType> {
   didMount() {
-    const btnArray: HeaderProps[] = [
+    const btnArray: HeaderItem[] = [
       {
         name: "이미지 삽입",
         id: "img",
         url: "https://res.cloudinary.com/deogv2vod/image/upload/v1687763399/Motion/imgBtn_xp45wq.png",
-        
+        compPath: "HeaderModal/ImgModal.ts",
       },
       {
         name: "비디오 삽입",
         id: "video",
         url: "https://res.cloudinary.com/deogv2vod/image/upload/v1687763399/Motion/videoBtn_rtdqzo.png",
+        compPath: "HeaderModal/VideoModal.ts",
       },
       {
         name: "메모",
         id: "note",
         url: "https://res.cloudinary.com/deogv2vod/image/upload/v1687763399/Motion/noteBtn_mxcndn.png",
+        compPath: "HeaderModal/MemoModal.ts",
       },
       {
         name: "할 일",
         id: "todo",
         url: "https://res.cloudinary.com/deogv2vod/image/upload/v1687763399/Motion/todoBtn_up9ztt.png",
+        compPath: "HeaderModal/TodoModal.ts",
       },
     ];
     btnArray.forEach((item) => {
@@ -44,23 +53,18 @@ export default class Header extends Component<PropsType, StateType> {
       this.insertEvent($headerItems, item);
     });
   }
-  insertItemCard($headerItems: HTMLElement, item: HeaderProps): HTMLElement {
-    const { name, id, url } = item;
+  insertItemCard($headerItems: HTMLElement, item: HeaderItem): HTMLElement {
     new HeaderItemCard($headerItems as Element, {
-      name,
-      id,
-      url,
+      ...item,
     });
     return $headerItems;
   }
 
-  insertEvent($htmlElement: HTMLElement, item: HeaderProps) {
-    const { id, name } = item;
+  insertEvent($htmlElement: HTMLElement, item: HeaderItem) {
     const $modal = this.target.querySelector("modal");
     $htmlElement.addEventListener("click", () => {
       new Modal($modal as Element, {
-        id,
-        name,
+        ...item,
       });
     });
   }
