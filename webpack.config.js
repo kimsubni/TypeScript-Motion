@@ -29,20 +29,15 @@ module.exports = () => {
           test: /\.(css|scss)$/,
           use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
         },
+
         {
-          test: /\.(jpg|png|gif)$/,
-          loader: "url-loader",
-          options: {
-            name: "[name].[ext]?[hash]",
-            publicPath: "./dist",
-            limit: 8192,
-          },
-        },
-        {
-          test: /\.svg$/,
-          use: {
-            loader: "file-loader",
-          },
+          // 이미지 포멧: PNG, JP(E)G, GIF, SVG, WEBP
+          test: /\.(png|jpe?g|gif|svg|webp)$/,
+          use: { loader: "file-loader" },
+          // options: {
+          //   publicPath: "./dist",
+          //   name: "[name].[ext]?[hash]",
+          // },
         },
       ],
     },
