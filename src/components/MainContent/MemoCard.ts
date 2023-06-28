@@ -1,7 +1,16 @@
 import Component, { PropsType, StateType } from "@/core/Component";
+import { MemoItem } from "@/data/ItemList";
 
-export default class MemoCard extends Component<PropsType, StateType> {
+type MemoTypeProps = {
+  item: MemoItem;
+};
+export default class MemoCard extends Component<MemoTypeProps, StateType> {
   template(): string {
-    return `memo`;
+    return `
+    <div class="memocard-wrapper">
+      <div class="title">${this.props.item.title}</div>
+      <div class="content">${this.props.item.content}</div>
+    </div>
+    `;
   }
 }

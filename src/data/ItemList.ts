@@ -48,7 +48,14 @@ export const itemList: ItemList = [
     description: "dd",
     tag: [],
   },
-  { id: "2", type: "memo", title: "용복아", content: "용복아 사랑해", tag: [] },
+  {
+    id: "2",
+    type: "memo",
+    title: "용복아 나도 팬미팅 보고싶다.",
+    content:
+      "용복아 사랑해 용복이 오늘 뭐하니 용복이 보고싶다 용복이 보고싶다 용복이가 보고싶다 나도 팬미팅 보고싶다.",
+    tag: [],
+  },
 ];
 export default class ItemRepogitory {
   addItem() {

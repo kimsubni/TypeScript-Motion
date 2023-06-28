@@ -1,10 +1,10 @@
 import Component, { PropsType, StateType } from "@/core/Component";
 import { ImgItem } from "@/data/ItemList";
 
-type ImgType = {
+type ImgTypeProps = {
   item: ImgItem;
 };
-export default class ImgCard extends Component<ImgType, StateType> {
+export default class ImgCard extends Component<ImgTypeProps, StateType> {
   template(): string {
     const { url, title, tag, description } = this.props.item;
     return `
