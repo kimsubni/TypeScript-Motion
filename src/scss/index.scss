@@ -126,6 +126,14 @@
   font-weight: bold;
   margin-right: 10px;
 }
+.itemlist-wrapper {
+  padding: 35px;
+}
+.item-wrapper {
+  @include boxShadow;
+  width: 90%;
+  height: 300px;
+}
 
 @keyframes slide-up {
   from {
