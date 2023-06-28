@@ -1,5 +1,5 @@
 import Component, { PropsType, StateType } from "@/core/Component";
-import { Item } from "@/data/ItemList";
+import { ImgItem, Item, MemoItem, TodoItem, VideoItem } from "@/data/ItemList";
 import ImgCard from "./ImgCard";
 import VideoCard from "./VideoCard";
 import MemoCard from "./MemoCard";
@@ -13,16 +13,16 @@ export default class ItemCard extends Component<ItemCardProps, StateType> {
     const item = this.props.item;
     switch (this.props.item.type) {
       case "img":
-        new ImgCard($itemCard as Element, { item });
+        new ImgCard($itemCard as Element, { item: item as ImgItem });
         break;
       case "video":
-        new VideoCard($itemCard as Element, { item });
+        new VideoCard($itemCard as Element, { item: item as VideoItem });
         break;
       case "memo":
-        new MemoCard($itemCard as Element, { item });
+        new MemoCard($itemCard as Element, { item: item as MemoItem });
         break;
       case "todo":
-        new TodoCard($itemCard as Element, { item });
+        new TodoCard($itemCard as Element, { item: item as TodoItem });
         break;
     }
   }
