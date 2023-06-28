@@ -132,9 +132,10 @@
 .item-wrapper {
   @include boxShadow;
   width: 90%;
-  height: 300px;
+  height: 200px;
   border-radius: 20px;
   padding: 20px;
+  margin: 10px 0;
 }
 
 @keyframes slide-up {
