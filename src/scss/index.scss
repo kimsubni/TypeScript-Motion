@@ -133,6 +133,8 @@
   @include boxShadow;
   width: 90%;
   height: 300px;
+  border-radius: 20px;
+  padding: 20px;
 }
 
 @keyframes slide-up {
