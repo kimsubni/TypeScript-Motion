@@ -2,6 +2,7 @@ $background-color: #fafbff;
 $white: #fefeff;
 $light-grey: #e8eaf2;
 $grey: #c2c8da;
+$dark-grey: #9a9ca3;
 $black: #50576a;
 
 $header-height: 75px;
@@ -45,6 +46,7 @@ body {
 * {
   font-size: $default-font-size;
   font-family: $font-family;
+  letter-spacing: -1.5px;
 }
 input {
   outline: none;
