@@ -4,6 +4,7 @@ $light-grey: #e8eaf2;
 $grey: #c2c8da;
 $dark-grey: #9a9ca3;
 $black: #50576a;
+$blue: #c3cdff;
 
 $header-height: 75px;
 $main-content: 100vh;
@@ -42,6 +43,7 @@ body {
   overflow-y: hidden;
   font-family: $font-family;
   color: $black;
+  user-select: none;
 }
 * {
   font-size: $default-font-size;
@@ -67,4 +69,13 @@ input:focus {
     format("woff");
   font-weight: 400;
   font-style: normal;
+}
+
+i {
+  user-select: none;
+  &:hover {
+    transform: scale(1.1);
+    transition: $default-transition;
+    color: rgb(255, 146, 146);
+  }
 }

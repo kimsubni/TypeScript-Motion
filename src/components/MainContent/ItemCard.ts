@@ -31,6 +31,7 @@ export default class ItemCard extends Component<ItemCardProps, StateType> {
     return `
     <div class ='item-wrapper'>
         <itemCard></itemCard>
+        <div class="close-btn"><i class="fa-solid fa-xmark"></i></div>
     </div>
     `;
   }

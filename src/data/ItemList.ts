@@ -56,6 +56,15 @@ export const itemList: ItemList = [
       "용복아 사랑해 용복이 오늘 뭐하니 용복이 보고싶다 용복이 보고싶다 용복이가 보고싶다 나도 팬미팅 보고싶다.",
     tag: [],
   },
+  {
+    id: "2",
+    type: "todo",
+    title: "용복아 나도 팬미팅 보고싶다.",
+    content:
+      "용복아 사랑해 용복이 오늘 뭐하니 용복이 보고싶다 용복이 보고싶다 용복이가 보고싶다 나도 팬미팅 보고싶다.",
+    isComplete: false,
+    tag: [],
+  },
 ];
 export default class ItemRepogitory {
   addItem() {
