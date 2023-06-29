@@ -24,9 +24,13 @@ export default class TodoCard extends Component<TodoTypeProps, TodoState> {
     });
   }
   template(): string {
+    const date = this.props.item.date.toLocaleDateString();
     return `
     <div class ="todo-wrapper">
-      <div>${this.props.item.title}</div>
+      <div class="todo-content">
+        <div class="title">${this.props.item.title} &nbsp;&nbsp;</div>
+        <div class="date">${date}</div>
+      </div>
       <div class="todo-check ${this.state.isCheck && "checked"}"></div>
     </div>`;
   }

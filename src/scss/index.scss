@@ -181,9 +181,17 @@
     }
   }
   .memocard-wrapper {
-    .title {
-      font-size: 20px;
-      font-weight: bold;
+    .memo-header {
+      display: flex;
+      align-items: end;
+      .title {
+        font-size: 20px;
+        font-weight: bold;
+      }
+      .date {
+        color: $grey;
+        font-weight: bold;
+      }
     }
     .content {
       margin-top: 10px;
@@ -193,6 +201,18 @@
   .todo-wrapper {
     display: flex;
     justify-content: space-between;
+    .todo-content {
+      display: flex;
+      align-items: end;
+      .title {
+        font-weight: bold;
+      }
+      .date {
+        color: $grey;
+        font-weight: bold;
+      }
+    }
+
     .todo-check {
       width: 20px;
       height: 20px;
