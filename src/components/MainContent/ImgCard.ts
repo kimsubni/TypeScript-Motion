@@ -1,19 +1,23 @@
 import Component, { PropsType, StateType } from "@/core/Component";
 import { ImgItem } from "@/data/ItemList";
 
-type ImgType = {
+type ImgTypeProps = {
   item: ImgItem;
 };
-export default class ImgCard extends Component<ImgType, StateType> {
+export default class ImgCard extends Component<ImgTypeProps, StateType> {
   template(): string {
     const { url, title, tag, description } = this.props.item;
+    const date = this.props.item.date.toLocaleDateString();
+
     return `
-      <div class="imgcard-wrapper">
+      <div class="imgvideocard-wrapper">
         <img src=${url} class='img-url'>
-        <div class="img-desc">
-          <div class="title">
-            ${title}
+        <div class="imgvideo-desc">
+          <div class="imgvideo-header">
+            <div class="title"> ${title}&nbsp;&nbsp; </div>
+            <div class="date">${date} </div>
           </div>
+      
           <div class="description">
             ${description}
           </div>
