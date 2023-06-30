@@ -79,6 +79,24 @@ export const itemList: ItemList = [
     description: "스키즈사랑해",
     tag: [],
   },
+  {
+    id: "sdsdf",
+    type: "video",
+    date: new Date(),
+    title: "용복아 나도 팬미팅 보고싶다.",
+    url: "https://www.youtube.com/embed/tJdtYD-fxiU",
+    description: "스키즈사랑해",
+    tag: [],
+  },
+  {
+    id: "sdsdf",
+    type: "video",
+    date: new Date(),
+    title: "용복아 나도 팬미팅 보고싶다.",
+    url: "https://www.youtube.com/embed/tJdtYD-fxiU",
+    description: "스키즈사랑해",
+    tag: [],
+  },
 ];
 export default class ItemRepogitory {
   addItem() {

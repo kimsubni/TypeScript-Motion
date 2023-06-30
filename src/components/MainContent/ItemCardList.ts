@@ -21,7 +21,6 @@ export default class ItemCardList extends Component<ItemsProps, StateType> {
   template(): string {
     return `
         <div class ="itemlist-wrapper">
-          
         </div>
     `;
   }
