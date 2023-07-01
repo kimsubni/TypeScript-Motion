@@ -9,6 +9,7 @@ export default class TodoModal extends Component<PropsType, StateType> {
       type: "text",
       placeholder: "제목을 작성해주세요.",
       value: "",
+      handleChange: this.handleChange.bind(this),
     });
     this.insertInput({
       id: "contentInput",
@@ -16,6 +17,7 @@ export default class TodoModal extends Component<PropsType, StateType> {
       type: "text",
       placeholder: "내용을 작성해주세요.",
       value: "",
+      handleChange: this.handleChange.bind(this),
     });
     this.insertInput({
       id: "tagInput",
@@ -23,7 +25,26 @@ export default class TodoModal extends Component<PropsType, StateType> {
       type: "text",
       placeholder: "태그를 작성해주세요.",
       value: "",
+      handleChange: this.handleChange.bind(this),
     });
+  }
+  handleChange(e: InputEvent) {
+    console.log(this);
+    const target = e.target as HTMLInputElement;
+    console.log(target.value);
+    /*switch (target.name) {
+      case "Title":
+        this.setState({ title: target.value });
+        break;
+      case "URL":
+        this.setState({ url: target.value });
+        break;
+      case "설명":
+        this.setState({ description: target.value });
+        break;
+      case "태그":
+        break;
+    }*/
   }
 
   insertInput(inputProps: InputProps) {

@@ -8,8 +8,11 @@ export type HeaderItem = {
   url: string;
   compPath: string;
 };
+type HeaderProps = {
+  updateItemList: Function;
+};
 
-export default class Header extends Component<PropsType, StateType> {
+export default class Header extends Component<HeaderProps, StateType> {
   didMount() {
     const btnArray: HeaderItem[] = [
       {
@@ -57,6 +60,7 @@ export default class Header extends Component<PropsType, StateType> {
     $htmlElement.addEventListener("click", () => {
       new Modal($modal as Element, {
         ...item,
+        updateItemList: this.props.updateItemList,
       });
     });
   }

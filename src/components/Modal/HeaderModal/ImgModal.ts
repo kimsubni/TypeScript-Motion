@@ -1,11 +1,13 @@
 import Input, { InputProps } from "@/components/Input";
-import Component, { PropsType, StateType } from "@/core/Component";
+import Component from "@/core/Component";
 import { ImgItem } from "@/data/Item";
 import ItemService from "@/service/Item";
 
 type ImgStateType = ImgItem;
-
-export default class ImgModal extends Component<PropsType, ImgStateType> {
+type ImgModalType = {
+  removeModal: Function;
+};
+export default class ImgModal extends Component<ImgModalType, ImgStateType> {
   setup() {
     this.setState({
       url: "",
@@ -94,6 +96,7 @@ export default class ImgModal extends Component<PropsType, ImgStateType> {
     $targetform?.addEventListener("submit", (e: Event) => {
       e.preventDefault();
       itemService.addItem(this.state);
+      this.props.removeModal();
     });
   }
 
@@ -105,7 +108,9 @@ export default class ImgModal extends Component<PropsType, ImgStateType> {
           <urlInput></urlInput>
           <descriptionInput></descriptionInput>
           <tagInput></tagInput>
-          <button>추가하기</button>
+          <div class="btn-wrapper">
+            <button class="form-submit">추가하기</button>
+          </div>
         </form>
     </div>
     `;

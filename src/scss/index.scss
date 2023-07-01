@@ -115,17 +115,29 @@
     display: grid;
     grid-template-rows: repeat(4, 1fr);
     grid-row-gap: 20px;
+
+    .btn-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+    }
   }
 }
 
-.modal-input {
-  height: 40px;
-  width: 410px;
-  background-color: $light-grey;
-}
-.modal-input-label {
-  font-weight: bold;
-  margin-right: 10px;
+.input-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  .modal-input-label {
+    font-weight: bold;
+    margin-right: 10px;
+    width: 40px;
+  }
+  .modal-input {
+    height: 40px;
+    background-color: $light-grey;
+    width: 100%;
+  }
 }
 .itemlist-wrapper {
   padding: 20px;

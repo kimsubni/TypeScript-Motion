@@ -74,3 +74,19 @@ input:focus {
 i {
   user-select: none;
 }
+button {
+  outline: none;
+  border: none;
+  &:focus {
+    outline: none;
+    border: none;
+  }
+}
+
+.form-submit {
+  cursor: pointer;
+  width: 100px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: $blue;
+}

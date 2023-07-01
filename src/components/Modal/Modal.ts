@@ -1,8 +1,10 @@
 import Component, { PropsType, StateType } from "@/core/Component";
+import { itemList } from "@/data/Item";
 type ModalProps = {
   id: string;
   name: string;
   compPath: string;
+  updateItemList: Function;
 };
 export default class Modal extends Component<ModalProps, StateType> {
   didMount(): void {
@@ -23,11 +25,24 @@ export default class Modal extends Component<ModalProps, StateType> {
       $modalWrapper.remove();
     });
   }
+
+  removeModal() {
+    const $modalWrapper = this.target.querySelector(".modal-wrapper");
+    if (!$modalWrapper) {
+      new Error("remove error : modalWrapper is not ");
+      return;
+    }
+    $modalWrapper.remove();
+    this.props.updateItemList(itemList);
+  }
+
   async inputContent() {
     const $modalContent = document.querySelector(".modal-content");
     const Content = await import(`@/components/Modal/${this.props.compPath}`);
     if (Content) {
-      new Content.default($modalContent as Element, { props: "헤" });
+      new Content.default($modalContent as Element, {
+        removeModal: this.removeModal.bind(this),
+      });
     }
   }
 
