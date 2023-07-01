@@ -73,9 +73,4 @@ input:focus {
 
 i {
   user-select: none;
-  &:hover {
-    transform: scale(1.1);
-    transition: $default-transition;
-    color: rgb(255, 146, 146);
-  }
 }

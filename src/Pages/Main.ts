@@ -1,7 +1,7 @@
 import Header from "@/components/Header/Header";
 import ItemCardList from "@/components/MainContent/ItemCardList";
 import Component, { PropsType, StateType } from "@/core/Component";
-import { ItemList, itemList } from "@/data/ItemList";
+import { ItemList, itemList } from "@/data/Item";
 
 type MainStateType = {
   items: ItemList;

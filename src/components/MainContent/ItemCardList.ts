@@ -1,5 +1,5 @@
 import Component, { PropsType, StateType } from "@/core/Component";
-import { ItemList } from "@/data/ItemList";
+import { ItemList } from "@/data/Item";
 import ItemCard from "./ItemCard";
 
 type ItemsProps = {
