@@ -1,14 +1,44 @@
 import Input, { InputProps } from "@/components/Input";
 import Component, { PropsType, StateType } from "@/core/Component";
+import { MemoItem } from "@/data/Item";
+import ItemService from "@/service/Item";
 
-export default class MemoModal extends Component<PropsType, StateType> {
+type MemoStateType = MemoItem;
+type ModalType = {
+  removeModal: Function;
+};
+export default class MemoModal extends Component<ModalType, MemoStateType> {
+  setup() {
+    this.setState({
+      id: new Date().toString(),
+      type: "memo",
+      title: "",
+      content: "",
+      date: new Date(),
+      tag: [],
+    });
+  }
   didMount(): void {
+    this.insertAllInputs();
+    this.createMemoItem();
+  }
+  didUpdate(): void {
+    this.insertAllInputs();
+    this.createMemoItem();
+  }
+  insertInput(inputProps: InputProps) {
+    const $input = this.target.querySelector(inputProps.id) as Element;
+    new Input($input, {
+      ...inputProps,
+    });
+  }
+  insertAllInputs() {
     this.insertInput({
       id: "titleInput",
       name: "Title",
       type: "text",
       placeholder: "제목을 작성해주세요.",
-      value: "",
+      value: this.state.title,
       handleChange: this.handleChange.bind(this),
     });
     this.insertInput({
@@ -16,7 +46,7 @@ export default class MemoModal extends Component<PropsType, StateType> {
       name: "내용",
       type: "text",
       placeholder: "내용을 작성해주세요.",
-      value: "",
+      value: this.state.content,
       handleChange: this.handleChange.bind(this),
     });
     this.insertInput({
@@ -28,35 +58,34 @@ export default class MemoModal extends Component<PropsType, StateType> {
       handleChange: this.handleChange.bind(this),
     });
   }
-
-  insertInput(inputProps: InputProps) {
-    const $input = this.target.querySelector(inputProps.id) as Element;
-    new Input($input, {
-      ...inputProps,
-    });
-  }
   handleChange(e: InputEvent) {
     console.log(this);
     const target = e.target as HTMLInputElement;
     console.log(target.value);
-    /*switch (target.name) {
+    switch (target.name) {
       case "Title":
         this.setState({ title: target.value });
         break;
-      case "URL":
-        this.setState({ url: target.value });
-        break;
-      case "설명":
-        this.setState({ description: target.value });
+      case "내용":
+        this.setState({ content: target.value });
         break;
       case "태그":
         break;
-    }*/
+    }
+  }
+  createMemoItem() {
+    const itemService: ItemService = new ItemService();
+    const $targetform = this.target.querySelector("#item-form");
+    $targetform?.addEventListener("submit", (e: Event) => {
+      e.preventDefault();
+      itemService.addItem(this.state);
+      this.props.removeModal();
+    });
   }
   template(): string {
     return `
     <div class="modal-input-wrapper">
-      <form id="img-form">
+      <form id="item-form">
         <titleInput></titleInput>
         <contentInput></contentInput>
         <tagInput></tagInput>

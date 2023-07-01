@@ -65,7 +65,7 @@ export default class VideoModal extends Component<PropsType, StateType> {
   template(): string {
     return `
     <div class="modal-input-wrapper"> 
-      <form id="img-form">
+      <form id="item-form">
         <titleInput></titleInput>
         <urlInput></urlInput>
         <descriptionInput></descriptionInput>
