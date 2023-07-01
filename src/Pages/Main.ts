@@ -30,13 +30,11 @@ export default class Main extends Component<PropsType, MainStateType> {
   }
 
   updateItemList(itemList: ItemList) {
-    console.log("오긴왔지?");
     console.log(this);
     this.setState({ items: itemList });
     this.update();
   }
   didUpdate(): void {
-    console.log("오냐?");
     this.insertHeader();
     this.insertItemCardList();
   }

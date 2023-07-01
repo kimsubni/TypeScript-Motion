@@ -4,10 +4,10 @@ import { ImgItem } from "@/data/Item";
 import ItemService from "@/service/Item";
 
 type ImgStateType = ImgItem;
-type ImgModalType = {
+type ModalType = {
   removeModal: Function;
 };
-export default class ImgModal extends Component<ImgModalType, ImgStateType> {
+export default class ImgModal extends Component<ModalType, ImgStateType> {
   setup() {
     this.setState({
       url: "",
@@ -92,7 +92,7 @@ export default class ImgModal extends Component<ImgModalType, ImgStateType> {
 
   createImgItem() {
     const itemService: ItemService = new ItemService();
-    const $targetform = this.target.querySelector("#img-form");
+    const $targetform = this.target.querySelector("#item-form");
     $targetform?.addEventListener("submit", (e: Event) => {
       e.preventDefault();
       itemService.addItem(this.state);
@@ -103,7 +103,7 @@ export default class ImgModal extends Component<ImgModalType, ImgStateType> {
   template(): string {
     return `
     <div class="modal-input-wrapper">
-      <form id="img-form">
+      <form id="item-form">
           <titleInput></titleInput>
           <urlInput></urlInput>
           <descriptionInput></descriptionInput>
