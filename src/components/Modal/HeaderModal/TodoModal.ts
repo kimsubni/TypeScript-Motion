@@ -3,6 +3,9 @@ import Component, { PropsType, StateType } from "@/core/Component";
 
 export default class TodoModal extends Component<PropsType, StateType> {
   didMount(): void {
+    this.insertAllInputs();
+  }
+  insertAllInputs() {
     this.insertInput({
       id: "titleInput",
       name: "Title",
@@ -57,9 +60,14 @@ export default class TodoModal extends Component<PropsType, StateType> {
   template(): string {
     return `
     <div class="modal-input-wrapper">
+      <form id="img-form">
         <titleInput></titleInput>
         <contentInput></contentInput>
         <tagInput></tagInput>
+        <div class="btn-wrapper">
+          <button class="form-submit">추가하기</button>
+        </div>
+      </form>
     </div>
     `;
   }

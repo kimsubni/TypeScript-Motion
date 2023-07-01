@@ -64,11 +64,16 @@ export default class VideoModal extends Component<PropsType, StateType> {
   }
   template(): string {
     return `
-    <div class="modal-input-wrapper">
+    <div class="modal-input-wrapper"> 
+      <form id="img-form">
         <titleInput></titleInput>
         <urlInput></urlInput>
         <descriptionInput></descriptionInput>
-        <tagInput></tagInput>
+        <tagInput></tagInput> 
+        <div class="btn-wrapper">
+          <button class="form-submit">추가하기</button>
+        </div>
+      </form>
     </div>
     `;
   }
