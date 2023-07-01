@@ -73,9 +73,20 @@ input:focus {
 
 i {
   user-select: none;
-  &:hover {
-    transform: scale(1.1);
-    transition: $default-transition;
-    color: rgb(255, 146, 146);
+}
+button {
+  outline: none;
+  border: none;
+  &:focus {
+    outline: none;
+    border: none;
   }
+}
+
+.form-submit {
+  cursor: pointer;
+  width: 100px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: $blue;
 }

@@ -1,5 +1,5 @@
 import Component, { PropsType, StateType } from "@/core/Component";
-import { MemoItem } from "@/data/ItemList";
+import { MemoItem } from "@/data/Item";
 
 type MemoTypeProps = {
   item: MemoItem;

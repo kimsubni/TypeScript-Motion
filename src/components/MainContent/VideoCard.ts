@@ -1,5 +1,5 @@
 import Component, { PropsType, StateType } from "@/core/Component";
-import { VideoItem } from "@/data/ItemList";
+import { VideoItem } from "@/data/Item";
 type VideoTypeProps = {
   item: VideoItem;
 };

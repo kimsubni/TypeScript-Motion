@@ -57,7 +57,7 @@ export const itemList: ItemList = [
     date: new Date(),
     title: "용복아 나도 팬미팅 보고싶다.",
     content:
-      "용복아 사랑해 용복이 오늘 뭐하니 용복이 보고싶다 용복이 보고싶다 용복이가 보고싶다 나도 팬미팅 보고싶다.",
+      "라이언과 춘식이의 사랑을 탐구해보자 라이언은 왜  춘식이를 데려왔을까 춘식이는 왜 이렇게 귀여운데  홀로 버려져있었을까 너무 미스테리하다. 너무너무 미스테리한일이다",
     tag: [],
   },
   {
@@ -66,41 +66,35 @@ export const itemList: ItemList = [
     date: new Date(),
     title: "용복아 나도 팬미팅 보고싶다.",
     content:
-      "용복아 사랑해 용복이 오늘 뭐하니 용복이 보고싶다 용복이 보고싶다 용복이가 보고싶다 나도 팬미팅 보고싶다.",
+      "라이언과 춘식이의 사랑을 탐구해보자 라이언은 왜  춘식이를 데려왔을까 춘식이는 왜 이렇게 귀여운데  홀로 버려져있었을까 너무 미스테리하다. 너무너무 미스테리한일이다",
     isComplete: false,
     tag: [],
   },
-  {
-    id: "sdsdf",
-    type: "video",
-    date: new Date(),
-    title: "용복아 나도 팬미팅 보고싶다.",
-    url: "https://www.youtube.com/embed/tJdtYD-fxiU",
-    description: "스키즈사랑해",
-    tag: [],
-  },
-  {
-    id: "sdsdf",
-    type: "video",
-    date: new Date(),
-    title: "용복아 나도 팬미팅 보고싶다.",
-    url: "https://www.youtube.com/embed/tJdtYD-fxiU",
-    description: "스키즈사랑해",
-    tag: [],
-  },
-  {
-    id: "sdsdf",
-    type: "video",
-    date: new Date(),
-    title: "용복아 나도 팬미팅 보고싶다.",
-    url: "https://www.youtube.com/embed/tJdtYD-fxiU",
-    description: "스키즈사랑해",
-    tag: [],
-  },
+  // {
+  //   id: "sdsdf",
+  //   type: "video",
+  //   date: new Date(),
+  //   title: "용복아 나도 팬미팅 보고싶다.",
+  //   url: "https://www.youtube.com/embed/tJdtYD-fxiU",
+  //   description:
+  //     "라이언과 춘식이의 사랑을 탐구해보자 라이언은 왜  춘식이를 데려왔을까 춘식이는 왜 이렇게 귀여운데  홀로 버려져있었을까 너무 미스테리하다. 너무너무 미스테리한일이다",
+  //   tag: [],
+  // },
+  // {
+  //   id: "sdsdf",
+  //   type: "video",
+  //   date: new Date(),
+  //   title: "용복아 나도 팬미팅 보고싶다.",
+  //   url: "https://www.youtube.com/embed/tJdtYD-fxiU",
+  //   description:
+  //     "라이언과 춘식이의 사랑을 탐구해보자 라이언은 왜  춘식이를 데려왔을까 춘식이는 왜 이렇게 귀여운데  홀로 버려져있었을까 너무 미스테리하다. 너무너무 미스테리한일이다",
+  //   tag: [],
+  // },
 ];
 export default class ItemRepogitory {
-  addItem() {
-    itemList.push();
+  constructor() {}
+  addItem(item: Item) {
+    itemList.push(item);
   }
   removeItem(id: string) {
     itemList.filter((item) => id !== item.id);

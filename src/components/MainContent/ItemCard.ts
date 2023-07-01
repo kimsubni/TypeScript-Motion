@@ -1,5 +1,5 @@
 import Component, { PropsType, StateType } from "@/core/Component";
-import { ImgItem, Item, MemoItem, TodoItem, VideoItem } from "@/data/ItemList";
+import { ImgItem, Item, MemoItem, TodoItem, VideoItem } from "@/data/Item";
 import ImgCard from "./ImgCard";
 import VideoCard from "./VideoCard";
 import MemoCard from "./MemoCard";

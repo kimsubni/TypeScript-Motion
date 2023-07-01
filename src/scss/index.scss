@@ -19,7 +19,6 @@
     font-weight: bold;
     @include flexCenter;
     svg {
-      cursor: pointer;
       transition: $default-transition;
       color: $black !important;
       &:hover {
@@ -94,7 +93,6 @@
 .modal {
   z-index: 3;
   width: 530px;
-  height: 300px;
   background-color: $white;
   @include boxShadowDark;
   animation: slide-up 0.6s cubic-bezier(0.4, 0, 0.2, 1);
@@ -113,21 +111,33 @@
   .modal-content {
     padding: 20px;
   }
-  .modal-input-wrapper {
+  #img-form {
     display: grid;
     grid-template-rows: repeat(4, 1fr);
     grid-row-gap: 20px;
+
+    .btn-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+    }
   }
 }
 
-.modal-input {
-  height: 40px;
-  width: 410px;
-  background-color: $light-grey;
-}
-.modal-input-label {
-  font-weight: bold;
-  margin-right: 10px;
+.input-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  .modal-input-label {
+    font-weight: bold;
+    margin-right: 10px;
+    width: 40px;
+  }
+  .modal-input {
+    height: 40px;
+    background-color: $light-grey;
+    width: 100%;
+  }
 }
 .itemlist-wrapper {
   padding: 20px;
@@ -149,7 +159,7 @@
 .item-wrapper {
   @include boxShadow;
   border-radius: 20px;
-  padding: 20px 40px 20px 20px;
+  padding: 20px 50px 20px 20px;
   margin: 10px 0;
   background-color: white;
   border: 3px solid white;
@@ -158,8 +168,17 @@
   .close-btn {
     position: absolute;
     right: 20px;
-    top: 20px;
-    font-size: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    i {
+      font-size: 23px;
+      color: rgb(255, 146, 146);
+      &:hover {
+        transform: scale(1.1);
+        transition: $default-transition;
+      }
+    }
   }
   &:hover {
     background-color: #f2f4fe;

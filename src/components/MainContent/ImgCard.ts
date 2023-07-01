@@ -1,5 +1,5 @@
 import Component, { PropsType, StateType } from "@/core/Component";
-import { ImgItem } from "@/data/ItemList";
+import { ImgItem } from "@/data/Item";
 
 type ImgTypeProps = {
   item: ImgItem;

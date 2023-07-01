@@ -1,5 +1,5 @@
 import Component, { PropsType, StateType } from "@/core/Component";
-import { TodoItem } from "@/data/ItemList";
+import { TodoItem } from "@/data/Item";
 
 type TodoTypeProps = {
   item: TodoItem;
