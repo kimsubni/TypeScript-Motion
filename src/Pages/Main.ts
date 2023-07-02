@@ -1,12 +1,13 @@
 import Header from "@/components/Header/Header";
-import ItemCardList from "@/components/MainContent/ItemCardList";
 import Component, { PropsType, StateType } from "@/core/Component";
+import ItemCard from "@/components/MainContent/ItemCard";
 import { ItemList, itemList } from "@/data/Item";
+import ItemService from "@/service/Item";
 
-type MainStateType = {
+type ItemsStateType = {
   items: ItemList;
 };
-export default class Main extends Component<PropsType, MainStateType> {
+export default class Main extends Component<PropsType, ItemsStateType> {
   setup() {
     //  데이터를 받아온다
     this.state = { items: itemList };
@@ -23,14 +24,21 @@ export default class Main extends Component<PropsType, MainStateType> {
     });
   }
   insertItemCardList() {
-    const $itemCardList = this.target.querySelector("itemCardList");
-    new ItemCardList($itemCardList as Element, {
-      items: this.state.items,
+    const $itemCardList = this.target.querySelector(".itemlist-wrapper");
+    this.state.items.forEach((item) => {
+      const $newItem = $itemCardList?.appendChild(
+        document.createElement("div")
+      );
+      $newItem?.setAttribute("class", "items");
+
+      new ItemCard($newItem as Element, {
+        item,
+        removeItem: this.removeItem.bind(this),
+      });
     });
   }
 
   updateItemList(itemList: ItemList) {
-    console.log(this);
     this.setState({ items: itemList });
     this.update();
   }
@@ -39,11 +47,17 @@ export default class Main extends Component<PropsType, MainStateType> {
     this.insertItemCardList();
   }
 
+  removeItem(id: string) {
+    const itemService: ItemService = new ItemService();
+    itemService.removeItem(id);
+    this.setState({ items: itemList });
+    this.update();
+  }
   template(): string {
     return `
     <div class='main-wrapper'>
       <header></header>
-      <itemCardList></itemCardList>
+      <div class ="itemlist-wrapper"></div>
     </div>`;
   }
 }

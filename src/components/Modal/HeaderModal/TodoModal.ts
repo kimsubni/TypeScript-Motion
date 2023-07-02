@@ -10,7 +10,6 @@ type ModalType = {
 export default class TodoModal extends Component<ModalType, TodoStateType> {
   setup() {
     this.setState({
-      id: new Date().toString(),
       type: "todo",
       title: "",
       isComplete: false,

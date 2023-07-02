@@ -2,7 +2,6 @@ import Input, { InputProps } from "@/components/Input";
 import Component from "@/core/Component";
 import { ImgItem } from "@/data/Item";
 import ItemService from "@/service/Item";
-
 type ImgStateType = ImgItem;
 type ModalType = {
   removeModal: Function;
@@ -14,7 +13,6 @@ export default class ImgModal extends Component<ModalType, ImgStateType> {
       title: "",
       description: "",
       date: new Date(),
-      id: new Date().toString(),
       tag: [],
       type: "img",
     });
