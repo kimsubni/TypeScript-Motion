@@ -10,7 +10,6 @@ type ModalType = {
 export default class MemoModal extends Component<ModalType, MemoStateType> {
   setup() {
     this.setState({
-      id: new Date().toString(),
       type: "memo",
       title: "",
       content: "",

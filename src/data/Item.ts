@@ -1,3 +1,5 @@
+import { v4 as uuid } from "uuid";
+
 export type ItemType = {
   id: string;
   url: string;
@@ -31,9 +33,9 @@ export type TodoItem = Pick<
 
 export type ItemList = (ImgItem | VideoItem | MemoItem | TodoItem)[];
 export type Item = ImgItem | VideoItem | MemoItem | TodoItem;
-export const itemList: ItemList = [
+export let itemList: ItemList = [
   {
-    id: "11",
+    id: uuid(),
     url: "https://res.cloudinary.com/deogv2vod/image/upload/v1687974472/Motion/E6yR7GLVkAUxia7_1_okimg6.png",
     type: "img",
     date: new Date(),
@@ -43,7 +45,7 @@ export const itemList: ItemList = [
     tag: [],
   },
   {
-    id: "2",
+    id: uuid(),
     url: "https://res.cloudinary.com/deogv2vod/image/upload/v1687874191/Motion/%ED%99%94%EB%A9%B4_%EC%BA%A1%EC%B2%98_2023-03-16_004616_wvnzbj.png",
     type: "img",
     date: new Date(),
@@ -52,7 +54,7 @@ export const itemList: ItemList = [
     tag: [],
   },
   {
-    id: "2",
+    id: uuid(),
     type: "memo",
     date: new Date(),
     title: "용복아 나도 팬미팅 보고싶다.",
@@ -61,7 +63,7 @@ export const itemList: ItemList = [
     tag: [],
   },
   {
-    id: "2",
+    id: uuid(),
     type: "todo",
     date: new Date(),
     title: "용복아 나도 팬미팅 보고싶다.",
@@ -97,6 +99,6 @@ export default class ItemRepogitory {
     itemList.push(item);
   }
   removeItem(id: string) {
-    itemList.filter((item) => id !== item.id);
+    itemList = itemList.filter((item) => id !== item.id);
   }
 }

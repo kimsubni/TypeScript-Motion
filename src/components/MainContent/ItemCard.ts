@@ -6,6 +6,7 @@ import MemoCard from "./MemoCard";
 import TodoCard from "./TodoCard";
 type ItemCardProps = {
   item: Item;
+  removeItem: Function;
 };
 export default class ItemCard extends Component<ItemCardProps, StateType> {
   didMount(): void {
@@ -25,6 +26,11 @@ export default class ItemCard extends Component<ItemCardProps, StateType> {
         new TodoCard($itemCard as Element, { item: item as TodoItem });
         break;
     }
+
+    const $closeBtn = this.target.querySelector(".close-btn");
+    $closeBtn?.addEventListener("click", () => {
+      if (confirm("삭제하시겠습니까?")) this.props.removeItem(item.id);
+    });
   }
 
   template(): string {

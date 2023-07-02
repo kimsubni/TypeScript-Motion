@@ -23,6 +23,7 @@
     "@babel/core": "^7.22.5",
     "@babel/preset-env": "^7.22.5",
     "@babel/preset-typescript": "^7.22.5",
+    "@types/uuid": "^9.0.2",
     "babel-loader": "^9.1.2",
     "css-loader": "^6.8.1",
     "file-loader": "^6.2.0",
@@ -39,6 +40,7 @@
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
-    "font-awesome": "^4.7.0"
+    "font-awesome": "^4.7.0",
+    "uuid": "^9.0.0"
   }
 }
