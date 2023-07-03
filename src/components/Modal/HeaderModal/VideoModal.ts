@@ -1,14 +1,39 @@
 import Input, { InputProps } from "@/components/Input";
 import Component, { PropsType, StateType } from "@/core/Component";
+import { VideoItem } from "@/data/Item";
+import ItemService from "@/service/Item";
 
-export default class VideoModal extends Component<PropsType, StateType> {
+type VideoStateType = VideoItem;
+type ModalType = {
+  removeModal: Function;
+};
+export default class VideoModal extends Component<ModalType, VideoStateType> {
+  setup() {
+    this.setState({
+      url: "",
+      title: "",
+      description: "",
+      date: new Date(),
+      tag: [],
+      type: "video",
+    });
+  }
   didMount(): void {
+    this.insertAllInputs();
+    this.createVideoItem();
+  }
+  didUpdate(): void {
+    this.insertAllInputs();
+    this.createVideoItem();
+  }
+
+  insertAllInputs() {
     this.insertInput({
       id: "titleInput",
       name: "Title",
       type: "text",
       placeholder: "비디오 제목을 작성해주세요.",
-      value: "",
+      value: this.state.title,
       handleChange: this.handleChange.bind(this),
     });
     this.insertInput({
@@ -16,7 +41,7 @@ export default class VideoModal extends Component<PropsType, StateType> {
       name: "URL",
       type: "url",
       placeholder: "여기에 URL을 작성해주세요.",
-      value: "",
+      value: this.state.url,
       handleChange: this.handleChange.bind(this),
     });
     this.insertInput({
@@ -24,7 +49,7 @@ export default class VideoModal extends Component<PropsType, StateType> {
       name: "설명",
       type: "text",
       placeholder: "비디오에 대한 설명을 작성해주세요.",
-      value: "",
+      value: this.state.description,
       handleChange: this.handleChange.bind(this),
     });
     this.insertInput({
@@ -44,11 +69,19 @@ export default class VideoModal extends Component<PropsType, StateType> {
     });
   }
 
+  createVideoItem() {
+    const itemService: ItemService = new ItemService();
+    const $targetform = this.target.querySelector("#item-form");
+    $targetform?.addEventListener("submit", (e: Event) => {
+      e.preventDefault();
+      itemService.addItem(this.state);
+      this.props.removeModal();
+    });
+  }
   handleChange(e: InputEvent) {
-    console.log(this);
     const target = e.target as HTMLInputElement;
     console.log(target.value);
-    /*switch (target.name) {
+    switch (target.name) {
       case "Title":
         this.setState({ title: target.value });
         break;
@@ -60,7 +93,7 @@ export default class VideoModal extends Component<PropsType, StateType> {
         break;
       case "태그":
         break;
-    }*/
+    }
   }
   template(): string {
     return `
