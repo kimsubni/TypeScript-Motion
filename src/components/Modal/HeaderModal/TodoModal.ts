@@ -6,6 +6,7 @@ import ItemService from "@/service/Item";
 type TodoStateType = TodoItem;
 type ModalType = {
   removeModal: Function;
+  createItem: Function;
 };
 export default class TodoModal extends Component<ModalType, TodoStateType> {
   setup() {
@@ -20,11 +21,11 @@ export default class TodoModal extends Component<ModalType, TodoStateType> {
   }
   didMount(): void {
     this.insertAllInputs();
-    this.createTodoItem();
+    this.props.createItem(this.state);
   }
   didUpdate(): void {
     this.insertAllInputs();
-    this.createTodoItem();
+    this.props.createItem(this.state);
   }
   insertAllInputs() {
     this.insertInput({
@@ -71,15 +72,6 @@ export default class TodoModal extends Component<ModalType, TodoStateType> {
     const $input = this.target.querySelector(inputProps.id) as Element;
     new Input($input, {
       ...inputProps,
-    });
-  }
-  createTodoItem() {
-    const itemService: ItemService = new ItemService();
-    const $targetform = this.target.querySelector("#item-form");
-    $targetform?.addEventListener("submit", (e: Event) => {
-      e.preventDefault();
-      itemService.addItem(this.state);
-      this.props.removeModal();
     });
   }
   template(): string {

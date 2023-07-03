@@ -2,7 +2,6 @@ import Header from "@/components/Header/Header";
 import Component, { PropsType, StateType } from "@/core/Component";
 import ItemCard from "@/components/MainContent/ItemCard";
 import { ItemList, itemList } from "@/data/Item";
-import ItemService from "@/service/Item";
 
 type ItemsStateType = {
   items: ItemList;

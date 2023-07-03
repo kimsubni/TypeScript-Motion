@@ -6,6 +6,7 @@ import ItemService from "@/service/Item";
 type VideoStateType = VideoItem;
 type ModalType = {
   removeModal: Function;
+  createItem: Function;
 };
 export default class VideoModal extends Component<ModalType, VideoStateType> {
   setup() {
@@ -20,11 +21,11 @@ export default class VideoModal extends Component<ModalType, VideoStateType> {
   }
   didMount(): void {
     this.insertAllInputs();
-    this.createVideoItem();
+    this.props.createItem(this.state);
   }
   didUpdate(): void {
     this.insertAllInputs();
-    this.createVideoItem();
+    this.props.createItem(this.state);
   }
 
   insertAllInputs() {
@@ -69,15 +70,6 @@ export default class VideoModal extends Component<ModalType, VideoStateType> {
     });
   }
 
-  createVideoItem() {
-    const itemService: ItemService = new ItemService();
-    const $targetform = this.target.querySelector("#item-form");
-    $targetform?.addEventListener("submit", (e: Event) => {
-      e.preventDefault();
-      itemService.addItem(this.state);
-      this.props.removeModal();
-    });
-  }
   handleChange(e: InputEvent) {
     const target = e.target as HTMLInputElement;
     console.log(target.value);
