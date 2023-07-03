@@ -6,6 +6,7 @@ import ItemService from "@/service/Item";
 type MemoStateType = MemoItem;
 type ModalType = {
   removeModal: Function;
+  createItem: Function;
 };
 export default class MemoModal extends Component<ModalType, MemoStateType> {
   setup() {
@@ -19,11 +20,11 @@ export default class MemoModal extends Component<ModalType, MemoStateType> {
   }
   didMount(): void {
     this.insertAllInputs();
-    this.createMemoItem();
+    this.props.createItem(this.state);
   }
   didUpdate(): void {
     this.insertAllInputs();
-    this.createMemoItem();
+    this.props.createItem(this.state);
   }
   insertInput(inputProps: InputProps) {
     const $input = this.target.querySelector(inputProps.id) as Element;
@@ -71,15 +72,6 @@ export default class MemoModal extends Component<ModalType, MemoStateType> {
       case "태그":
         break;
     }
-  }
-  createMemoItem() {
-    const itemService: ItemService = new ItemService();
-    const $targetform = this.target.querySelector("#item-form");
-    $targetform?.addEventListener("submit", (e: Event) => {
-      e.preventDefault();
-      itemService.addItem(this.state);
-      this.props.removeModal();
-    });
   }
   template(): string {
     return `

@@ -1,5 +1,6 @@
 import Component, { PropsType, StateType } from "@/core/Component";
-import { itemList } from "@/data/Item";
+import { itemList, Item } from "@/data/Item";
+import ItemService from "@/service/Item";
 type ModalProps = {
   id: string;
   name: string;
@@ -42,8 +43,18 @@ export default class Modal extends Component<ModalProps, StateType> {
     if (Content) {
       new Content.default($modalContent as Element, {
         removeModal: this.removeModal.bind(this),
+        createItem: this.createItem.bind(this),
       });
     }
+  }
+  createItem(item: Item) {
+    const itemService: ItemService = new ItemService();
+    const $targetform = this.target.querySelector("#item-form");
+    $targetform?.addEventListener("submit", (e: Event) => {
+      e.preventDefault();
+      itemService.addItem(item);
+      this.removeModal();
+    });
   }
 
   template(): string {

@@ -1,10 +1,10 @@
 import Input, { InputProps } from "@/components/Input";
 import Component from "@/core/Component";
 import { ImgItem } from "@/data/Item";
-import ItemService from "@/service/Item";
 type ImgStateType = ImgItem;
 type ModalType = {
   removeModal: Function;
+  createItem: Function;
 };
 export default class ImgModal extends Component<ModalType, ImgStateType> {
   setup() {
@@ -19,7 +19,7 @@ export default class ImgModal extends Component<ModalType, ImgStateType> {
   }
   didMount(): void {
     this.insertAllInputs();
-    this.createImgItem();
+    this.props.createItem(this.state);
   }
 
   insertInput(inputProps: InputProps) {
@@ -30,7 +30,7 @@ export default class ImgModal extends Component<ModalType, ImgStateType> {
   }
   didUpdate(): void {
     this.insertAllInputs();
-    this.createImgItem();
+    this.props.createItem(this.state);
   }
 
   insertAllInputs() {
@@ -86,16 +86,6 @@ export default class ImgModal extends Component<ModalType, ImgStateType> {
       case "태그":
         break;
     }
-  }
-
-  createImgItem() {
-    const itemService: ItemService = new ItemService();
-    const $targetform = this.target.querySelector("#item-form");
-    $targetform?.addEventListener("submit", (e: Event) => {
-      e.preventDefault();
-      itemService.addItem(this.state);
-      this.props.removeModal();
-    });
   }
 
   template(): string {
