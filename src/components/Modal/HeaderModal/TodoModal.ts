@@ -1,5 +1,10 @@
 import Input, { InputProps } from "@/components/Input";
-import Component, { Composable, PropsType, StateType } from "@/core/Component";
+import Component, {
+  Composable,
+  ModalComponent,
+  PropsType,
+  StateType,
+} from "@/core/Component";
 import { TodoItem } from "@/data/Item";
 import ItemService from "@/service/Item";
 
@@ -10,7 +15,7 @@ type ModalType = {
 };
 export default class TodoModal
   extends Component<ModalType, TodoStateType>
-  implements Composable
+  implements Composable, ModalComponent
 {
   setup() {
     this.setState({
