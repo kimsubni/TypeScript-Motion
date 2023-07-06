@@ -2,6 +2,7 @@ import Header from "@/components/Header/Header";
 import Component, { PropsType, StateType } from "@/core/Component";
 import ItemCard from "@/components/MainContent/ItemCard";
 import { ItemList, itemList } from "@/data/Item";
+import ItemService from "@/service/Item";
 
 type ItemsStateType = {
   items: ItemList;
@@ -56,7 +57,7 @@ export default class Main extends Component<PropsType, ItemsStateType> {
     draggables.forEach((draggable) => {
       const dragElement = draggable as HTMLElement;
       this.startDrag(dragElement);
-      this.doingDrag(dragElement);
+      // this.doingDrag(dragElement);
       this.endDrag(dragElement);
     });
 
@@ -71,8 +72,8 @@ export default class Main extends Component<PropsType, ItemsStateType> {
   startDrag(dragElement: HTMLElement) {
     dragElement.addEventListener("dragstart", () => {
       dragElement.classList.add("dragging");
-      dragElement.style.position = "absolute";
-      dragElement.style.zIndex = "1000";
+      // dragElement.style.position = "absolute";
+      // dragElement.style.zIndex = "1000";
     });
   }
   /**
@@ -102,14 +103,14 @@ export default class Main extends Component<PropsType, ItemsStateType> {
   /**
    * 드래그하는 중
    */
-  doingDrag(dragElement: HTMLElement) {
-    dragElement.addEventListener("drag", (event) => {
-      function moveAt(pageX: number, pageY: number) {
-        dragElement.style.top = pageY - dragElement.offsetHeight / 2 + "px";
-      }
-      moveAt(event.pageX, event.pageY);
-    });
-  }
+  // doingDrag(dragElement: HTMLElement) {
+  //   dragElement.addEventListener("drag", (event) => {
+  //     function moveAt(pageY: number) {
+  //       dragElement.style.top = pageY - dragElement.offsetHeight / 2 + "px";
+  //     }
+  //     moveAt(event.pageY);
+  //   });
+  // }
 
   getDragAfterElement(container: HTMLElement, y: number): DragType {
     const draggableElements = [
