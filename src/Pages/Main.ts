@@ -3,17 +3,16 @@ import Component, { PropsType, StateType } from "@/core/Component";
 import ItemCard from "@/components/MainContent/ItemCard";
 import { ItemList, itemList } from "@/data/Item";
 import ItemService from "@/service/Item";
+import { DragHoverArea, DragType, Draggable } from "@/core/Draggable";
 
 type ItemsStateType = {
   items: ItemList;
 };
-type DragType = {
-  offset: number;
-  element?: Element;
-};
-export default class Main extends Component<PropsType, ItemsStateType> {
+export default class Main
+  extends Component<PropsType, ItemsStateType>
+  implements Draggable, DragHoverArea
+{
   setup() {
-    //  데이터를 받아온다
     this.state = { items: itemList };
   }
   didMount(): void {
@@ -53,52 +52,43 @@ export default class Main extends Component<PropsType, ItemsStateType> {
   }
 
   addDragEvent() {
-    const draggables = this.target.querySelectorAll(".items");
-    draggables.forEach((draggable) => {
+    const $draggables = this.target.querySelectorAll(".items");
+    $draggables.forEach((draggable) => {
       const dragElement = draggable as HTMLElement;
-      this.startDrag(dragElement);
+      dragElement.addEventListener("dragstart", () => {
+        this.onDragStart(dragElement);
+      });
+      dragElement.addEventListener("dragend", () => {
+        this.onDragEnd(dragElement);
+      });
       // this.doingDrag(dragElement);
-      this.endDrag(dragElement);
     });
 
     const $listWrapper = this.target.querySelector(
       ".itemlist-wrapper"
-    ) as HTMLElement;
-    this.putDrag($listWrapper);
-  }
-  /**
-   * 드래그 시작할 때
-   */
-  startDrag(dragElement: HTMLElement) {
-    dragElement.addEventListener("dragstart", () => {
-      dragElement.classList.add("dragging");
-      // dragElement.style.position = "absolute";
-      // dragElement.style.zIndex = "1000";
-    });
-  }
-  /**
-   * 영역에 드래그가 되었을 때
-   */
-  putDrag($wrapper: HTMLElement) {
-    $wrapper?.addEventListener("dragover", (e) => {
+    )! as HTMLElement;
+    $listWrapper.addEventListener("dragover", (e) => {
       e.preventDefault();
-      const dragElement = document.querySelector(".dragging") as HTMLElement;
-      const afterElement = this.getDragAfterElement($wrapper, e.clientY);
-      if (afterElement.element) {
-        $wrapper.insertBefore(dragElement, afterElement.element);
-      } else {
-        $wrapper.appendChild(dragElement);
-      }
+      this.onDragOver($listWrapper, e);
     });
   }
-  /**
-   * 드래그 끝났을 때
-   */
-  endDrag(dragElement: HTMLElement) {
-    dragElement.addEventListener("dragend", () => {
-      dragElement.classList.remove("dragging");
-      dragElement.removeAttribute("style");
-    });
+  onDragStart(dragElement: HTMLElement) {
+    dragElement.classList.add("dragging");
+    // dragElement.style.position = "absolute";
+    // dragElement.style.zIndex = "1000";
+  }
+  onDragEnd(dragElement: HTMLElement) {
+    dragElement.classList.remove("dragging");
+    dragElement.removeAttribute("style");
+  }
+  onDragOver(hoverElement: HTMLElement, e: DragEvent) {
+    const dragElement = document.querySelector(".dragging") as HTMLElement;
+    const afterElement = this.getDragAfterElement(hoverElement, e.clientY);
+    if (afterElement.element) {
+      hoverElement.insertBefore(dragElement, afterElement.element);
+    } else {
+      hoverElement.appendChild(dragElement);
+    }
   }
   /**
    * 드래그하는 중
