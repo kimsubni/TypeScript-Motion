@@ -1,5 +1,10 @@
 import Input, { InputProps } from "@/components/Input";
-import Component, { PropsType, StateType } from "@/core/Component";
+import Component, {
+  Composable,
+  ModalComponent,
+  PropsType,
+  StateType,
+} from "@/core/Component";
 import { VideoItem } from "@/data/Item";
 import ItemService from "@/service/Item";
 
@@ -8,7 +13,10 @@ type ModalType = {
   removeModal: Function;
   createItem: Function;
 };
-export default class VideoModal extends Component<ModalType, VideoStateType> {
+export default class VideoModal
+  extends Component<ModalType, VideoStateType>
+  implements Composable, ModalComponent
+{
   setup() {
     this.setState({
       url: "",
@@ -20,15 +28,15 @@ export default class VideoModal extends Component<ModalType, VideoStateType> {
     });
   }
   didMount(): void {
-    this.insertAllInputs();
+    this.insertElement();
     this.props.createItem(this.state);
   }
   didUpdate(): void {
-    this.insertAllInputs();
+    this.insertElement();
     this.props.createItem(this.state);
   }
 
-  insertAllInputs() {
+  insertElement(): void {
     this.insertInput({
       id: "titleInput",
       name: "Title",
@@ -70,15 +78,25 @@ export default class VideoModal extends Component<ModalType, VideoStateType> {
     });
   }
 
+  convertToEmbeddedURL(url: string): string {
+    const regExp =
+      /^(?:https?:\/\/)?(?:www\.)?(?:(?:youtube.com\/(?:(?:watch\?v=)|(?:embed\/))([a-zA-Z0-9-]{11}))|(?:youtu.be\/([a-zA-Z0-9-]{11})))/;
+    const match = url.match(regExp);
+    const videoId = match ? match[1] || match[2] : undefined;
+    if (videoId) {
+      return `https://www.youtube.com/embed/${videoId}`;
+    }
+    return url;
+  }
+
   handleChange(e: InputEvent) {
     const target = e.target as HTMLInputElement;
-    console.log(target.value);
     switch (target.name) {
       case "Title":
         this.setState({ title: target.value });
         break;
       case "URL":
-        this.setState({ url: target.value });
+        this.setState({ url: this.convertToEmbeddedURL(target.value) });
         break;
       case "설명":
         this.setState({ description: target.value });

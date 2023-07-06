@@ -1,3 +1,5 @@
+import { InputProps } from "@/components/Input";
+
 export interface PropsType {}
 export interface StateType {}
 
@@ -56,4 +58,13 @@ export default class Component<P extends PropsType, S extends StateType> {
       callback(event);
     });
   }
+}
+
+export interface Composable {
+  insertElement(): void;
+}
+
+export interface ModalComponent {
+  insertInput(inputProps: InputProps): void;
+  handleChange(event: InputEvent): void;
 }

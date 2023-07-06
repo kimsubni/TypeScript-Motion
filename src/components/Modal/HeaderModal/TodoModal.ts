@@ -1,5 +1,10 @@
 import Input, { InputProps } from "@/components/Input";
-import Component, { PropsType, StateType } from "@/core/Component";
+import Component, {
+  Composable,
+  ModalComponent,
+  PropsType,
+  StateType,
+} from "@/core/Component";
 import { TodoItem } from "@/data/Item";
 import ItemService from "@/service/Item";
 
@@ -8,7 +13,10 @@ type ModalType = {
   removeModal: Function;
   createItem: Function;
 };
-export default class TodoModal extends Component<ModalType, TodoStateType> {
+export default class TodoModal
+  extends Component<ModalType, TodoStateType>
+  implements Composable, ModalComponent
+{
   setup() {
     this.setState({
       type: "todo",
@@ -20,14 +28,14 @@ export default class TodoModal extends Component<ModalType, TodoStateType> {
     });
   }
   didMount(): void {
-    this.insertAllInputs();
+    this.insertElement();
     this.props.createItem(this.state);
   }
   didUpdate(): void {
-    this.insertAllInputs();
+    this.insertElement();
     this.props.createItem(this.state);
   }
-  insertAllInputs() {
+  insertElement(): void {
     this.insertInput({
       id: "titleInput",
       name: "Title",

@@ -1,4 +1,4 @@
-import Component, { PropsType, StateType } from "@/core/Component";
+import Component, { Composable, PropsType, StateType } from "@/core/Component";
 import { itemList, Item } from "@/data/Item";
 import ItemService from "@/service/Item";
 type ModalProps = {
@@ -7,23 +7,33 @@ type ModalProps = {
   compPath: string;
   updateItemList: Function;
 };
-export default class Modal extends Component<ModalProps, StateType> {
+export default class Modal
+  extends Component<ModalProps, StateType>
+  implements Composable
+{
   didMount(): void {
-    const $modalWrapper = this.target.querySelector(".modal-wrapper");
-    if (!$modalWrapper) {
-      new Error("모달 생성 오류");
-      return;
-    }
+    const $modalWrapper = this.target.querySelector(
+      ".modal-wrapper"
+    )! as HTMLElement;
     $modalWrapper.addEventListener("click", (e) => {
       if (e.currentTarget === e.target) {
         $modalWrapper.remove();
       }
     });
-    this.inputContent();
+    this.insertElement();
 
     const $closeModal = this.target.querySelector(".close-modal");
     $closeModal?.addEventListener("click", () => {
       $modalWrapper.remove();
+    });
+  }
+  insertElement(): void {
+    const $modalContent = document.querySelector(".modal-content");
+    import(`@/components/Modal/${this.props.compPath}`).then((Content) => {
+      new Content.default($modalContent as Element, {
+        removeModal: this.removeModal.bind(this),
+        createItem: this.createItem.bind(this),
+      });
     });
   }
 
@@ -37,16 +47,6 @@ export default class Modal extends Component<ModalProps, StateType> {
     this.props.updateItemList(itemList);
   }
 
-  async inputContent() {
-    const $modalContent = document.querySelector(".modal-content");
-    const Content = await import(`@/components/Modal/${this.props.compPath}`);
-    if (Content) {
-      new Content.default($modalContent as Element, {
-        removeModal: this.removeModal.bind(this),
-        createItem: this.createItem.bind(this),
-      });
-    }
-  }
   createItem(item: Item) {
     const itemService: ItemService = new ItemService();
     const $targetform = this.target.querySelector("#item-form");

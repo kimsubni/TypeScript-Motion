@@ -1,12 +1,15 @@
 import Input, { InputProps } from "@/components/Input";
-import Component from "@/core/Component";
+import Component, { Composable, ModalComponent } from "@/core/Component";
 import { ImgItem } from "@/data/Item";
 type ImgStateType = ImgItem;
 type ModalType = {
   removeModal: Function;
   createItem: Function;
 };
-export default class ImgModal extends Component<ModalType, ImgStateType> {
+export default class ImgModal
+  extends Component<ModalType, ImgStateType>
+  implements Composable, ModalComponent
+{
   setup() {
     this.setState({
       url: "",
@@ -18,7 +21,7 @@ export default class ImgModal extends Component<ModalType, ImgStateType> {
     });
   }
   didMount(): void {
-    this.insertAllInputs();
+    this.insertElement();
     this.props.createItem(this.state);
   }
 
@@ -29,11 +32,11 @@ export default class ImgModal extends Component<ModalType, ImgStateType> {
     });
   }
   didUpdate(): void {
-    this.insertAllInputs();
+    this.insertElement();
     this.props.createItem(this.state);
   }
 
-  insertAllInputs() {
+  insertElement(): void {
     this.insertInput({
       id: "titleInput",
       name: "Title",
