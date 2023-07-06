@@ -1,5 +1,5 @@
 import Input, { InputProps } from "@/components/Input";
-import Component, { Composable } from "@/core/Component";
+import Component, { Composable, ModalComponent } from "@/core/Component";
 import { ImgItem } from "@/data/Item";
 type ImgStateType = ImgItem;
 type ModalType = {
@@ -8,7 +8,7 @@ type ModalType = {
 };
 export default class ImgModal
   extends Component<ModalType, ImgStateType>
-  implements Composable
+  implements Composable, ModalComponent
 {
   setup() {
     this.setState({

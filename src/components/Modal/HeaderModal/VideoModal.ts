@@ -1,5 +1,10 @@
 import Input, { InputProps } from "@/components/Input";
-import Component, { Composable, PropsType, StateType } from "@/core/Component";
+import Component, {
+  Composable,
+  ModalComponent,
+  PropsType,
+  StateType,
+} from "@/core/Component";
 import { VideoItem } from "@/data/Item";
 import ItemService from "@/service/Item";
 
@@ -10,7 +15,7 @@ type ModalType = {
 };
 export default class VideoModal
   extends Component<ModalType, VideoStateType>
-  implements Composable
+  implements Composable, ModalComponent
 {
   setup() {
     this.setState({
@@ -75,7 +80,6 @@ export default class VideoModal
 
   handleChange(e: InputEvent) {
     const target = e.target as HTMLInputElement;
-    console.log(target.value);
     switch (target.name) {
       case "Title":
         this.setState({ title: target.value });
