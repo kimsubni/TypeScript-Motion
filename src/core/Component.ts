@@ -57,3 +57,7 @@ export default class Component<P extends PropsType, S extends StateType> {
     });
   }
 }
+
+export interface Composable {
+  insertElement(): void;
+}

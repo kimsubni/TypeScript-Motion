@@ -1,4 +1,4 @@
-import Component, { PropsType, StateType } from "@/core/Component";
+import Component, { Composable, PropsType, StateType } from "@/core/Component";
 import HeaderItemCard from "./HeaderItemCard";
 import Modal from "../Modal/Modal";
 
@@ -12,8 +12,15 @@ type HeaderProps = {
   updateItemList: Function;
 };
 
-export default class Header extends Component<HeaderProps, StateType> {
+export default class Header
+  extends Component<HeaderProps, StateType>
+  implements Composable
+{
   didMount() {
+    this.insertElement();
+  }
+
+  insertElement(): void {
     const btnArray: HeaderItem[] = [
       {
         name: "이미지 삽입",
@@ -44,17 +51,12 @@ export default class Header extends Component<HeaderProps, StateType> {
       const $headerItems = this.target.querySelector(
         `#${item.id}`
       ) as HTMLElement;
-      this.insertItemCard($headerItems, item);
+      new HeaderItemCard($headerItems as Element, {
+        ...item,
+      });
       this.insertEvent($headerItems, item);
     });
   }
-  insertItemCard($headerItems: HTMLElement, item: HeaderItem): HTMLElement {
-    new HeaderItemCard($headerItems as Element, {
-      ...item,
-    });
-    return $headerItems;
-  }
-
   insertEvent($htmlElement: HTMLElement, item: HeaderItem) {
     const $modal = this.target.querySelector("modal");
     $htmlElement.addEventListener("click", () => {
