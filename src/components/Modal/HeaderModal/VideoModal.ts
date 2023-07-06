@@ -78,6 +78,17 @@ export default class VideoModal
     });
   }
 
+  convertToEmbeddedURL(url: string): string {
+    const regExp =
+      /^(?:https?:\/\/)?(?:www\.)?(?:(?:youtube.com\/(?:(?:watch\?v=)|(?:embed\/))([a-zA-Z0-9-]{11}))|(?:youtu.be\/([a-zA-Z0-9-]{11})))/;
+    const match = url.match(regExp);
+    const videoId = match ? match[1] || match[2] : undefined;
+    if (videoId) {
+      return `https://www.youtube.com/embed/${videoId}`;
+    }
+    return url;
+  }
+
   handleChange(e: InputEvent) {
     const target = e.target as HTMLInputElement;
     switch (target.name) {
@@ -85,7 +96,7 @@ export default class VideoModal
         this.setState({ title: target.value });
         break;
       case "URL":
-        this.setState({ url: target.value });
+        this.setState({ url: this.convertToEmbeddedURL(target.value) });
         break;
       case "설명":
         this.setState({ description: target.value });
