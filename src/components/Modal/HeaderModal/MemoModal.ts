@@ -1,5 +1,5 @@
 import Input, { InputProps } from "@/components/Input";
-import Component, { PropsType, StateType } from "@/core/Component";
+import Component, { Composable, PropsType, StateType } from "@/core/Component";
 import { MemoItem } from "@/data/Item";
 import ItemService from "@/service/Item";
 
@@ -8,7 +8,10 @@ type ModalType = {
   removeModal: Function;
   createItem: Function;
 };
-export default class MemoModal extends Component<ModalType, MemoStateType> {
+export default class MemoModal
+  extends Component<ModalType, MemoStateType>
+  implements Composable
+{
   setup() {
     this.setState({
       type: "memo",
@@ -18,21 +21,8 @@ export default class MemoModal extends Component<ModalType, MemoStateType> {
       tag: [],
     });
   }
-  didMount(): void {
-    this.insertAllInputs();
-    this.props.createItem(this.state);
-  }
-  didUpdate(): void {
-    this.insertAllInputs();
-    this.props.createItem(this.state);
-  }
-  insertInput(inputProps: InputProps) {
-    const $input = this.target.querySelector(inputProps.id) as Element;
-    new Input($input, {
-      ...inputProps,
-    });
-  }
-  insertAllInputs() {
+
+  insertElement(): void {
     this.insertInput({
       id: "titleInput",
       name: "Title",
@@ -56,6 +46,20 @@ export default class MemoModal extends Component<ModalType, MemoStateType> {
       placeholder: "태그를 작성해주세요.",
       value: "",
       handleChange: this.handleChange.bind(this),
+    });
+  }
+  didMount(): void {
+    this.insertElement();
+    this.props.createItem(this.state);
+  }
+  didUpdate(): void {
+    this.insertElement();
+    this.props.createItem(this.state);
+  }
+  insertInput(inputProps: InputProps) {
+    const $input = this.target.querySelector(inputProps.id) as Element;
+    new Input($input, {
+      ...inputProps,
     });
   }
   handleChange(e: InputEvent) {

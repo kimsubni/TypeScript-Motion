@@ -1,6 +1,6 @@
 export interface Draggable {
-  onDragStart(dragElement: HTMLElement): void;
-  onDragEnd(dragElement: HTMLElement): void;
+  onDragStart(event: DragEvent): void;
+  onDragEnd(event: DragEvent): void;
 }
 
 export type DragType = {
@@ -9,5 +9,8 @@ export type DragType = {
 };
 export interface DragHoverArea {
   onDragOver(hoverElement: HTMLElement, event: DragEvent): void;
+}
+
+export interface GetDragElement {
   getDragAfterElement(container: HTMLElement, y: number): DragType;
 }
