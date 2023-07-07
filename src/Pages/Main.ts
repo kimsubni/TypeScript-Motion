@@ -24,7 +24,13 @@ export default class Main
 
   renderingElement() {
     this.insertElement();
-    this.addDragEvent();
+    const $listWrapper = this.target.querySelector(
+      ".itemlist-wrapper"
+    )! as HTMLElement;
+    $listWrapper.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      this.onDragOver($listWrapper, e);
+    });
   }
 
   insertElement(): void {
@@ -50,15 +56,6 @@ export default class Main
         item,
         removeItem: this.removeItem.bind(this),
       });
-    });
-  }
-  addDragEvent() {
-    const $listWrapper = this.target.querySelector(
-      ".itemlist-wrapper"
-    )! as HTMLElement;
-    $listWrapper.addEventListener("dragover", (e) => {
-      e.preventDefault();
-      this.onDragOver($listWrapper, e);
     });
   }
   onDragOver(hoverElement: HTMLElement, e: DragEvent) {

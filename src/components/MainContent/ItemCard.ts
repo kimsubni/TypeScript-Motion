@@ -13,7 +13,9 @@ export default class ItemCard
   extends Component<ItemCardProps, StateType>
   implements Draggable, Composable
 {
+  private element: HTMLElement = this.target as HTMLElement;
   didMount(): void {
+    this.element = this.target as HTMLElement;
     this.insertElement();
     const $closeBtn = this.target.querySelector(".close-btn")! as HTMLElement;
     $closeBtn.addEventListener("click", () => {
@@ -21,12 +23,14 @@ export default class ItemCard
         this.props.removeItem(this.props.item.id);
     });
 
-    const element = this.target as HTMLElement;
-    element.addEventListener("dragstart", (event: DragEvent) => {
+    this.element.addEventListener("dragstart", (event: DragEvent) => {
       this.onDragStart(event);
     });
-    element.addEventListener("dragend", (event: DragEvent) => {
+    this.element.addEventListener("dragend", (event: DragEvent) => {
       this.onDragEnd(event);
+    });
+    this.element.addEventListener("drag", (event: DragEvent) => {
+      this.onDragging(event);
     });
   }
   insertElement(): void {
@@ -48,15 +52,18 @@ export default class ItemCard
     }
   }
   onDragStart(_: DragEvent): void {
-    this.target.classList.add("dragging");
-    // dragElement.style.position = "absolute";
-    // dragElement.style.zIndex = "1000";
+    this.element.classList.add("dragging");
+    this.element.style.position = "absolute";
+    this.element.style.zIndex = "1000";
   }
   onDragEnd(_: DragEvent): void {
-    this.target.classList.remove("dragging");
-    this.target.removeAttribute("style");
+    this.element.classList.remove("dragging");
+    this.element.removeAttribute("style");
   }
 
+  onDragging(event: DragEvent): void {
+    this.element.style.top = event.pageY - this.element.offsetHeight / 2 + "px";
+  }
   template(): string {
     return `
     <div class ='item-wrapper'>

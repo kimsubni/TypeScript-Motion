@@ -1,6 +1,7 @@
 export interface Draggable {
   onDragStart(event: DragEvent): void;
   onDragEnd(event: DragEvent): void;
+  onDragging(event: DragEvent): void;
 }
 
 export type DragType = {
