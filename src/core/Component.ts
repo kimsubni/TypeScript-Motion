@@ -1,4 +1,5 @@
 import { InputProps } from "@/components/Input";
+import { Draggable, Hoverable } from "./Draggable";
 
 export interface PropsType {}
 export interface StateType {}
