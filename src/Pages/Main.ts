@@ -34,10 +34,10 @@ export default class Main
     const $listWrapper = this.target.querySelector(
       ".itemlist-wrapper"
     )! as HTMLElement;
-    $listWrapper.addEventListener("dragover", (event) => {
-      event.preventDefault();
-      this.onDragOver($listWrapper, event);
-    });
+    // $listWrapper.addEventListener("dragover", (event) => {
+    //   event.preventDefault();
+    //   this.onDragOver($listWrapper, event);
+    // });
   }
 
   insertElement(): void {
@@ -60,18 +60,18 @@ export default class Main
       itemCard.setOnDragStateListener((target: ItemCard, state: DragState) => {
         switch (state) {
           case "start":
-            console.log("start");
+            console.log("enter", target);
             this.updateSection("mute");
             break;
-          case "end":
-            console.log("end");
+          case "stop":
+            console.log("stop", target);
             this.updateSection("unmute");
             break;
           case "enter":
-            console.log("enter");
+            console.log("enter", target);
             break;
           case "leave":
-            console.log("leave");
+            console.log("leave", target);
             break;
           default:
             throw new Error(`unsupported state: ${state}`);

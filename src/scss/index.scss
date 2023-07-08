@@ -286,6 +286,6 @@ section {
     opacity: 1;
   }
 }
-.mute-children {
+.mute-children * {
   pointer-events: none;
 }

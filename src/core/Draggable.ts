@@ -1,7 +1,7 @@
 import ItemCard from "@/components/MainContent/ItemCard";
 import Component, { PropsType, StateType } from "./Component";
 
-export type DragState = "start" | "end" | "leave" | "enter";
+export type DragState = "start" | "stop" | "leave" | "enter";
 
 export type OnDragStateListener<T extends Component<PropsType, StateType>> = (
   target: T,

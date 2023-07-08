@@ -71,12 +71,16 @@ export default class ItemCard
   }
   onDragStart(_: DragEvent): void {
     this.notifyDragObserver("start");
+    console.log("Start");
+
     this.itemWrapper.classList.add("dragging");
     // -this.itemWrapper.style.position = "absolute";
     // -this.itemWrapper.style.zIndex = "1000";
   }
   onDragEnd(_: DragEvent): void {
-    this.notifyDragObserver("end");
+    console.log("End");
+
+    this.notifyDragObserver("stop");
     this.itemWrapper.classList.remove("dragging");
     // -this.itemWrapper.removeAttribute("style");
   }
