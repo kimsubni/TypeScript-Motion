@@ -81,18 +81,14 @@ export default class Main
 
     const afterElement = this.getDragAfterElement(hoverElement, event.clientY);
     if (afterElement.element) {
-      console.log(afterElement.element);
-
       try {
         hoverElement.insertBefore(
           dragElement.parentElement! as HTMLElement,
           afterElement.element.parentElement! as HTMLElement
         );
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     } else {
-      hoverElement.appendChild(dragElement);
+      hoverElement.appendChild(dragElement.parentElement! as HTMLElement);
     }
   }
   getDragAfterElement(container: HTMLElement, y: number): DragType {
