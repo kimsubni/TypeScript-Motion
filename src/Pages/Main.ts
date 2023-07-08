@@ -1,19 +1,25 @@
 import Header from "@/components/Header/Header";
 import Component, { Composable, PropsType, StateType } from "@/core/Component";
 import ItemCard from "@/components/MainContent/ItemCard";
-import { ItemList, itemList } from "@/data/Item";
+import { Item, ItemList, itemList } from "@/data/Item";
 import ItemService from "@/service/Item";
-import { DragHoverArea, DragType, GetDragElement } from "@/core/Draggable";
+import {
+  DragHoverArea,
+  DragState,
+  DragType,
+  GetDragElement,
+} from "@/core/Draggable";
 
 type ItemsStateType = {
   items: ItemList;
+  children: Set<ItemCard>;
 };
 export default class Main
   extends Component<PropsType, ItemsStateType>
   implements DragHoverArea, Composable, GetDragElement
 {
   setup() {
-    this.state = { items: itemList };
+    this.state = { items: itemList, children: new Set<ItemCard>() };
   }
   didMount(): void {
     this.renderingElement();
@@ -23,21 +29,22 @@ export default class Main
   }
 
   renderingElement() {
+    this.state.children = new Set<ItemCard>();
     this.insertElement();
-    this.addDragEvent();
+    const $listWrapper = this.target.querySelector(
+      ".itemlist-wrapper"
+    )! as HTMLElement;
+    $listWrapper.addEventListener("dragover", (event) => {
+      event.preventDefault();
+      this.onDragOver($listWrapper, event);
+    });
   }
 
   insertElement(): void {
-    /**
-     * Header component
-     */
     const $header = this.target.querySelector("header");
     new Header($header as Element, {
       updateItemList: this.updateItemList.bind(this),
     });
-    /**
-     * ItemCard component
-     */
     const $itemCardList = this.target.querySelector(
       ".itemlist-wrapper"
     )! as HTMLElement;
@@ -45,25 +52,37 @@ export default class Main
       const $newItem = $itemCardList.appendChild(
         document.createElement("section")
       );
-      $newItem.setAttribute("draggable", "true");
-      new ItemCard($newItem as Element, {
+      const itemCard = new ItemCard($newItem as Element, {
         item,
         removeItem: this.removeItem.bind(this),
       });
+      this.state.children.add(itemCard);
+      itemCard.setOnDragStateListener((target: ItemCard, state: DragState) => {
+        switch (state) {
+          case "start":
+            console.log("start");
+            this.updateSection("mute");
+            break;
+          case "end":
+            console.log("end");
+            this.updateSection("unmute");
+            break;
+          case "enter":
+            console.log("enter");
+            break;
+          case "leave":
+            console.log("leave");
+            break;
+          default:
+            throw new Error(`unsupported state: ${state}`);
+        }
+      });
     });
   }
-  addDragEvent() {
-    const $listWrapper = this.target.querySelector(
-      ".itemlist-wrapper"
-    )! as HTMLElement;
-    $listWrapper.addEventListener("dragover", (e) => {
-      e.preventDefault();
-      this.onDragOver($listWrapper, e);
-    });
-  }
-  onDragOver(hoverElement: HTMLElement, e: DragEvent) {
+
+  onDragOver(hoverElement: HTMLElement, event: DragEvent) {
     const dragElement = document.querySelector(".dragging") as HTMLElement;
-    const afterElement = this.getDragAfterElement(hoverElement, e.clientY);
+    const afterElement = this.getDragAfterElement(hoverElement, event.clientY);
     if (afterElement.element) {
       hoverElement.insertBefore(dragElement, afterElement.element);
     } else {
@@ -72,7 +91,7 @@ export default class Main
   }
   getDragAfterElement(container: HTMLElement, y: number): DragType {
     const draggableElements = [
-      ...container.querySelectorAll("section:not(.dragging)"),
+      ...container.querySelectorAll(".item-wrapper:not(.dragging)"),
     ];
 
     return draggableElements.reduce(
@@ -80,7 +99,7 @@ export default class Main
         const box = child.getBoundingClientRect();
         const offset = y - box.bottom;
         if (offset < 0 && offset > closest.offset) {
-          return { offset: offset, element: child };
+          return { offset: offset, element: child as HTMLElement };
         } else {
           return closest;
         }
@@ -97,7 +116,14 @@ export default class Main
     const itemService: ItemService = new ItemService();
     itemService.removeItem(id);
     this.setState({ items: itemList });
+    this.updateSection("unmute");
     this.update();
+  }
+
+  private updateSection(state: "mute" | "unmute") {
+    this.state.children.forEach((section: ItemCard) => {
+      section.muteChildren(state);
+    });
   }
 
   template(): string {

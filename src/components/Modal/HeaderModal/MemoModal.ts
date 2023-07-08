@@ -68,9 +68,7 @@ export default class MemoModal
     });
   }
   handleChange(e: InputEvent) {
-    console.log(this);
     const target = e.target as HTMLInputElement;
-    console.log(target.value);
     switch (target.name) {
       case "Title":
         this.setState({ title: target.value });
