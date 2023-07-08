@@ -34,10 +34,10 @@ export default class Main
     const $listWrapper = this.target.querySelector(
       ".itemlist-wrapper"
     )! as HTMLElement;
-    // $listWrapper.addEventListener("dragover", (event) => {
-    //   event.preventDefault();
-    //   this.onDragOver($listWrapper, event);
-    // });
+    $listWrapper.addEventListener("dragover", (event) => {
+      event.preventDefault();
+      this.onDragOver($listWrapper, event);
+    });
   }
 
   insertElement(): void {
@@ -60,18 +60,14 @@ export default class Main
       itemCard.setOnDragStateListener((target: ItemCard, state: DragState) => {
         switch (state) {
           case "start":
-            console.log("enter", target);
             this.updateSection("mute");
             break;
           case "stop":
-            console.log("stop", target);
             this.updateSection("unmute");
             break;
           case "enter":
-            console.log("enter", target);
             break;
           case "leave":
-            console.log("leave", target);
             break;
           default:
             throw new Error(`unsupported state: ${state}`);
@@ -82,9 +78,17 @@ export default class Main
 
   onDragOver(hoverElement: HTMLElement, event: DragEvent) {
     const dragElement = document.querySelector(".dragging") as HTMLElement;
+
     const afterElement = this.getDragAfterElement(hoverElement, event.clientY);
     if (afterElement.element) {
-      hoverElement.insertBefore(dragElement, afterElement.element);
+      try {
+        hoverElement.insertBefore(
+          dragElement.parentElement! as HTMLElement,
+          afterElement.element.parentElement! as HTMLElement
+        );
+      } catch (error) {
+        console.log(error);
+      }
     } else {
       hoverElement.appendChild(dragElement);
     }
@@ -97,7 +101,7 @@ export default class Main
     return draggableElements.reduce(
       (closest, child) => {
         const box = child.getBoundingClientRect();
-        const offset = y - box.bottom;
+        const offset = y - box.bottom + box.height / 2;
         if (offset < 0 && offset > closest.offset) {
           return { offset: offset, element: child as HTMLElement };
         } else {
