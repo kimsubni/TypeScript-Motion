@@ -153,16 +153,19 @@
   background-color: $blue;
   border-radius: 10px;
 }
+
+section {
+  margin: 10px 0;
+}
 .item-wrapper {
   @include boxShadow;
   border-radius: 20px;
-  width: 560px;
   padding: 20px 50px 20px 20px;
-  margin: 10px 0;
   background-color: white;
   border: 3px solid white;
   cursor: pointer;
   position: relative;
+
   .close-btn {
     position: absolute;
     right: 20px;
@@ -268,6 +271,10 @@
     }
   }
 }
+.drop-area {
+  border-radius: 20px;
+  border: 5px solid $blue;
+}
 
 @keyframes slide-up {
   from {
@@ -278,4 +285,7 @@
     transform: translateY(0);
     opacity: 1;
   }
+}
+.mute-children * {
+  pointer-events: none;
 }
