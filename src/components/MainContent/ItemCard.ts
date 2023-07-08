@@ -41,9 +41,9 @@ export default class ItemCard
     this.itemWrapper.addEventListener("dragend", (event: DragEvent) => {
       this.onDragEnd(event);
     });
-    // this.itemWrapper.addEventListener("drag", (event: DragEvent) => {
-    //   this.onDragging(event);
-    // });
+    this.itemWrapper.addEventListener("drop", (event: DragEvent) => {
+      this.onDrop(event);
+    });
     this.itemWrapper.addEventListener("dragenter", (event: DragEvent) => {
       this.onDragEnter(event);
     });
@@ -72,7 +72,6 @@ export default class ItemCard
   onDragStart(_: DragEvent): void {
     this.notifyDragObserver("start");
     console.log("Start");
-
     this.itemWrapper.classList.add("dragging");
     // -this.itemWrapper.style.position = "absolute";
     // -this.itemWrapper.style.zIndex = "1000";
@@ -91,6 +90,9 @@ export default class ItemCard
   onDragEnter(event: DragEvent): void {
     this.notifyDragObserver("enter");
     this.itemWrapper.classList.add("drop-area");
+  }
+  onDrop(event: DragEvent): void {
+    this.itemWrapper.classList.remove("drop-area");
   }
   onDragLeave(event: DragEvent): void {
     this.notifyDragObserver("leave");

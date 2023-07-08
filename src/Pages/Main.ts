@@ -81,6 +81,8 @@ export default class Main
 
     const afterElement = this.getDragAfterElement(hoverElement, event.clientY);
     if (afterElement.element) {
+      console.log(afterElement.element);
+
       try {
         hoverElement.insertBefore(
           dragElement.parentElement! as HTMLElement,
@@ -101,7 +103,8 @@ export default class Main
     return draggableElements.reduce(
       (closest, child) => {
         const box = child.getBoundingClientRect();
-        const offset = y - box.bottom + box.height / 2;
+        const offset = y - box.top - box.height / 2;
+
         if (offset < 0 && offset > closest.offset) {
           return { offset: offset, element: child as HTMLElement };
         } else {

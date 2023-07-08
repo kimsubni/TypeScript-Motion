@@ -12,6 +12,7 @@ export interface Draggable {
   onDragStart(event: DragEvent): void;
   onDragEnd(event: DragEvent): void;
   onDragging(event: DragEvent): void;
+  onDrop(event: DragEvent): void;
   muteChildren(state: "mute" | "unmute"): void;
   setOnDragStateListener(listener: OnDragStateListener<ItemCard>): void;
 }
