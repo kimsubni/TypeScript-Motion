@@ -60,18 +60,14 @@ export default class Main
       itemCard.setOnDragStateListener((target: ItemCard, state: DragState) => {
         switch (state) {
           case "start":
-            console.log("start");
             this.updateSection("mute");
             break;
-          case "end":
-            console.log("end");
+          case "stop":
             this.updateSection("unmute");
             break;
           case "enter":
-            console.log("enter");
             break;
           case "leave":
-            console.log("leave");
             break;
           default:
             throw new Error(`unsupported state: ${state}`);
@@ -82,11 +78,17 @@ export default class Main
 
   onDragOver(hoverElement: HTMLElement, event: DragEvent) {
     const dragElement = document.querySelector(".dragging") as HTMLElement;
+
     const afterElement = this.getDragAfterElement(hoverElement, event.clientY);
     if (afterElement.element) {
-      hoverElement.insertBefore(dragElement, afterElement.element);
+      try {
+        hoverElement.insertBefore(
+          dragElement.parentElement! as HTMLElement,
+          afterElement.element.parentElement! as HTMLElement
+        );
+      } catch (error) {}
     } else {
-      hoverElement.appendChild(dragElement);
+      hoverElement.appendChild(dragElement.parentElement! as HTMLElement);
     }
   }
   getDragAfterElement(container: HTMLElement, y: number): DragType {
@@ -97,7 +99,8 @@ export default class Main
     return draggableElements.reduce(
       (closest, child) => {
         const box = child.getBoundingClientRect();
-        const offset = y - box.bottom;
+        const offset = y - box.top - box.height / 2;
+
         if (offset < 0 && offset > closest.offset) {
           return { offset: offset, element: child as HTMLElement };
         } else {
