@@ -5,6 +5,12 @@ $grey: #c2c8da;
 $dark-grey: #9a9ca3;
 $black: #50576a;
 $blue: #c3cdff;
+$tag-blue: #e4e9ff;
+$tag-pink: #ffdfdf;
+$tag-green: rgb(230, 255, 221);
+$tag-key: random(3);
+$tag-list: ($tag-blue, $tag-pink, $tag-green);
+$nth: nth($tag-list, $tag-key);
 
 $header-height: 75px;
 $main-content: 100vh;

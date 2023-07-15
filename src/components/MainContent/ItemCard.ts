@@ -10,6 +10,7 @@ import {
   DragState,
   OnDragStateListener,
 } from "@/core/Draggable";
+import Tags from "./Tags";
 type ItemCardProps = {
   item: Item;
   removeItem: Function;
@@ -33,7 +34,6 @@ export default class ItemCard
       if (confirm("삭제하시겠습니까?"))
         this.props.removeItem(this.props.item.id);
     });
-    console.log(this.itemWrapper);
 
     this.itemWrapper.addEventListener("dragstart", (event: DragEvent) => {
       this.onDragStart(event);
@@ -68,10 +68,12 @@ export default class ItemCard
         new TodoCard($itemCard as Element, { item: item as TodoItem });
         break;
     }
+
+    const $tags = this.target.querySelector("tags");
+    new Tags($tags as Element, { tags: item.tag });
   }
   onDragStart(_: DragEvent): void {
     this.notifyDragObserver("start");
-    console.log("Start");
     this.itemWrapper.classList.add("dragging");
     // -this.itemWrapper.style.position = "absolute";
     // -this.itemWrapper.style.zIndex = "1000";
@@ -118,6 +120,7 @@ export default class ItemCard
     return `
     <div class ='item-wrapper' draggable="true">
         <itemCard></itemCard>
+        <tags></tags>
         <div class="close-btn"><i class="fa-solid fa-xmark"></i></div>
     </div>
     `;
