@@ -289,3 +289,15 @@ section {
 .mute-children * {
   pointer-events: none;
 }
+
+.tags {
+  display: flex;
+  justify-content: end;
+  margin: 10px 0;
+  .tag {
+    margin: 0px 5px;
+    background-color: $nth;
+    padding: 3px 10px;
+    border-radius: 5px;
+  }
+}
